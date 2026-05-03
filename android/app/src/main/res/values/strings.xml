@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Come, Talk</string>
+    <string name="title_activity_main">Come, Talk</string>
+    <string name="package_name">com.aethera.cometalk</string>
+    <string name="custom_url_scheme">com.aethera.cometalk</string>
+</resources>

@@ -1,0 +1,62 @@
+flowchart TD
+    %% 定義節點樣式
+    classDef userNode fill:#E5E5EA,stroke:#3C3C43,stroke-width:1px,color:black,rx:10px,ry:10px;
+    classDef frontendNode fill:#007AFF,stroke:#0056B3,stroke-width:1px,color:white,rx:10px,ry:10px;
+    classDef backendNode fill:#34C759,stroke:#248A3D,stroke-width:1px,color:white,rx:10px,ry:10px;
+    classDef aiNode fill:#AF52DE,stroke:#5E2A88,stroke-width:1px,color:white,rx:10px,ry:10px;
+    classDef errorNode fill:#FF3B30,stroke:#B02118,stroke-width:1px,color:white,rx:10px,ry:10px;
+
+    %% 定義節點
+    A["👤 使用者輸入文字<br/>或透過按鈕/貼上附加上傳"]:::userNode
+    B["🖥️ 前端 (app.js)<br/>整理輸入並發送安檢請求"]:::frontendNode
+    C["⚙️ 後端 (server.js)<br/>POST /api/guardrails/process"]:::backendNode
+    D["平行呼叫 OpenAI 進行意圖分析<br/>(gpt-4o-mini)"]:::aiNode
+    E1["🔒 越獄檢查 (Jailbreak)"]
+    E2["⚠️ 極端危害檢查 (NSFW)"]
+    E3["🎯 防偏題檢查 (Topical)"]
+    F{"判斷是否安全？"}
+    G["❌ 後端回傳阻擋原因"]:::errorNode
+    H["🛑 前端中斷對話<br/>顯示【安全阻擋】訊息"]:::errorNode
+    I["🛡️ 本地資料脫敏 (Sanitize)<br/>隱藏個資與金鑰 (PII/Secret)"]:::backendNode
+    J["✅ 後端回傳淨化後的文字"]:::backendNode
+    K["🖥️ 前端 (app.js) 組合最終Prompt:<br/>1. 系統提示<br/>2. 淨化文字+歷史對話<br/>3. 檔案圖片"]:::frontendNode
+    L["🧠 呼叫 OpenAI API (gpt-4o)"]:::aiNode
+    M["💬 取回 AI 心理代理人回覆"]:::frontendNode
+    N["✨ 前端渲染對話氣泡<br/>等待下一次輸入"]:::frontendNode
+    O["👤 點擊結束按鈕"]:::userNode
+    P["🖥️ 前端抓取 prompt"]:::frontendNode
+    Q["🖥️ 將歷史送至 OpenAI"]:::frontendNode
+    R["🗂️ OpenAI 回傳 JSON"]:::aiNode
+    S["🖼️ 前端解析 JSON<br/>面板渲染畫面"]:::frontendNode
+
+    %% 定義連線
+    A --> B
+    B -- "夾帶: 文字 + 歷史" --> C
+    
+    subgraph guardrails["Guardrails 安檢核心"]
+        C --> D
+        D --> E1
+        D --> E2
+        D --> E3
+        E1 --> F
+        E2 --> F
+        E3 --> F
+    end
+    
+    F -- "任一項為 FAIL" --> G
+    G --> H
+    
+    F -- "全數皆為 PASS" --> I
+    I --> J
+    J --> K
+    K --> L
+    L --> M
+    M --> N
+    N -. "繼續對話" .-> A
+    
+    subgraph endchat["結束對話模組"]
+        O --> P
+        P --> Q
+        Q --> R
+        R --> S
+    end

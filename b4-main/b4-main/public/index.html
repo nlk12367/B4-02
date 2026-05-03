@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DocCompiler — 文件知識編譯系統</title>
+    <meta name="description" content="將複雜文件編譯成 AI-ready、可驗證、可追溯的 L1/L2/L3 分層知識資料">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app-shell">
+    <!-- ── Sidebar ── -->
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="brand">
+                <div class="brand-icon-wrap">
+                    <span class="material-symbols-rounded">biotech</span>
+                </div>
+                <div>
+                    <div class="brand-name">DocCompiler</div>
+                    <div class="brand-sub">知識編譯系統</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upload Zone -->
+        <div class="upload-zone" id="uploadZone">
+            <div class="upload-inner" id="uploadInner">
+                <div class="upload-icon-wrap">
+                    <span class="material-symbols-rounded upload-icon">upload_file</span>
+                </div>
+                <div class="upload-title">拖曳文件至此</div>
+                <div class="upload-hint">或點擊選取</div>
+                <div class="upload-types">JPG / PNG / TXT / MD / CSV / JSON</div>
+            </div>
+            <input type="file" id="fileInput" accept="image/*,.txt,.md,.csv,.json" hidden>
+        </div>
+
+        <!-- Processing indicator in sidebar -->
+        <div class="sidebar-processing hidden" id="sidebarProcessing">
+            <div class="sp-spinner"></div>
+            <div class="sp-text" id="spText">分析中...</div>
+        </div>
+
+        <!-- Doc list header -->
+        <div class="doc-list-header">
+            <span>已處理文件</span>
+            <span class="doc-count-badge" id="docCountBadge">0</span>
+        </div>
+        <div class="doc-list" id="docList">
+            <div class="doc-empty-state">
+                <span class="material-symbols-rounded">description</span>
+                <span>尚無文件</span>
+            </div>
+        </div>
+    </aside>
+
+    <!-- ── Main Content ── -->
+    <main class="main-content" id="mainContent">
+
+        <!-- Welcome State -->
+        <div class="welcome-state" id="welcomeState">
+            <div class="welcome-glow"></div>
+            <div class="welcome-icon-wrap">
+                <span class="material-symbols-rounded welcome-icon">psychology</span>
+            </div>
+            <h1 class="welcome-title">文件知識編譯系統</h1>
+            <p class="welcome-desc">上傳文件，自動生成 L1 摘要 / L2 事實 / L3 證據<br>三層 AI-ready 結構化知識表示</p>
+            <div class="feature-pills">
+                <span class="f-pill pill-vision">
+                    <span class="material-symbols-rounded">visibility</span> AI 視覺解析
+                </span>
+                <span class="f-pill pill-text">
+                    <span class="material-symbols-rounded">text_snippet</span> 文字結構提取
+                </span>
+                <span class="f-pill pill-l1">
+                    <span class="material-symbols-rounded">summarize</span> L1 摘要層
+                </span>
+                <span class="f-pill pill-l2">
+                    <span class="material-symbols-rounded">fact_check</span> L2 事實層
+                </span>
+                <span class="f-pill pill-l3">
+                    <span class="material-symbols-rounded">format_quote</span> L3 證據層
+                </span>
+                <span class="f-pill pill-qa">
+                    <span class="material-symbols-rounded">forum</span> 文件問答
+                </span>
+            </div>
+            <button class="start-btn" id="startUploadBtn">
+                <span class="material-symbols-rounded">upload</span>
+                開始上傳文件
+            </button>
+        </div>
+
+        <!-- Processing State -->
+        <div class="processing-state hidden" id="processingState">
+            <div class="processing-visual">
+                <div class="proc-ring proc-ring-1"></div>
+                <div class="proc-ring proc-ring-2"></div>
+                <div class="proc-ring proc-ring-3"></div>
+                <span class="material-symbols-rounded proc-center-icon">biotech</span>
+            </div>
+            <div class="processing-steps" id="processingSteps">
+                <div class="proc-step active" id="step-route">
+                    <span class="step-dot"></span>
+                    <span class="step-label">路線判斷中...</span>
+                </div>
+                <div class="proc-step" id="step-parse">
+                    <span class="step-dot"></span>
+                    <span class="step-label">文件解析中...</span>
+                </div>
+                <div class="proc-step" id="step-knowledge">
+                    <span class="step-dot"></span>
+                    <span class="step-label">知識層生成中...</span>
+                </div>
+                <div class="proc-step" id="step-validate">
+                    <span class="step-dot"></span>
+                    <span class="step-label">驗證與儲存...</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Document Viewer -->
+        <div class="doc-viewer hidden" id="docViewer">
+
+            <!-- Doc header -->
+            <div class="doc-header">
+                <div class="dh-left">
+                    <div class="doc-filename-row">
+                        <span class="material-symbols-rounded doc-file-icon" id="docFileIcon">description</span>
+                        <h2 class="doc-filename" id="docFilename">document.txt</h2>
+                    </div>
+                    <div class="doc-badges">
+                        <span class="route-badge" id="routeBadge">文字解析</span>
+                        <span class="type-badge" id="typeBadge">text</span>
+                        <span class="review-badge hidden" id="reviewBadge">
+                            <span class="material-symbols-rounded">warning</span> 需審核
+                        </span>
+                    </div>
+                </div>
+                <div class="dh-right">
+                    <div class="confidence-widget">
+                        <div class="conf-label">信心分數</div>
+                        <div class="conf-bar-track">
+                            <div class="conf-bar-fill" id="confBarFill"></div>
+                        </div>
+                        <div class="conf-value" id="confValue">--%</div>
+                    </div>
+                    <button class="delete-doc-btn" id="deleteDocBtn" title="刪除文件">
+                        <span class="material-symbols-rounded">delete</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Knowledge Tabs -->
+            <div class="knowledge-tabs" id="knowledgeTabs">
+                <button class="ktab active" data-tab="L1" id="ktabL1">
+                    <span class="ktab-label">L1</span>
+                    <span class="ktab-name">摘要層</span>
+                    <span class="ktab-line"></span>
+                </button>
+                <button class="ktab" data-tab="L2" id="ktabL2">
+                    <span class="ktab-label">L2</span>
+                    <span class="ktab-name">事實層</span>
+                    <span class="ktab-line"></span>
+                </button>
+                <button class="ktab" data-tab="L3" id="ktabL3">
+                    <span class="ktab-label">L3</span>
+                    <span class="ktab-name">證據層</span>
+                    <span class="ktab-line"></span>
+                </button>
+                <button class="ktab" data-tab="raw" id="ktabRaw">
+                    <span class="ktab-label">
+                        <span class="material-symbols-rounded" style="font-size:14px">data_object</span>
+                    </span>
+                    <span class="ktab-name">原始</span>
+                    <span class="ktab-line"></span>
+                </button>
+            </div>
+
+            <!-- Tab content area -->
+            <div class="tab-content-area" id="tabContentArea">
+                <!-- Rendered by JS -->
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- ── Bottom Chat Bar ── -->
+<div class="chat-bar" id="chatBar">
+    <div class="chat-bar-inner">
+        <span class="material-symbols-rounded chat-bar-icon">forum</span>
+        <input type="text" id="queryInput" placeholder="選擇文件後，輸入問題向 AI 詢問..." autocomplete="off" disabled>
+        <button class="query-send-btn" id="querySendBtn" disabled>
+            <span class="material-symbols-rounded">send</span>
+        </button>
+    </div>
+</div>
+
+<!-- ── Answer Overlay ── -->
+<div class="answer-overlay hidden" id="answerOverlay">
+    <div class="answer-header">
+        <div class="answer-header-left">
+            <span class="material-symbols-rounded">smart_toy</span>
+            <span>AI 回答</span>
+        </div>
+        <button class="answer-close-btn" id="answerCloseBtn">
+            <span class="material-symbols-rounded">close</span>
+        </button>
+    </div>
+    <div class="answer-question" id="answerQuestion"></div>
+    <div class="answer-body" id="answerBody">
+        <div class="answer-loading">
+            <div class="answer-dots">
+                <div class="a-dot"></div>
+                <div class="a-dot"></div>
+                <div class="a-dot"></div>
+            </div>
+            <span>AI 正在分析文件...</span>
+        </div>
+    </div>
+</div>
+
+<!-- ── Error Toast ── -->
+<div class="error-toast hidden" id="errorToast">
+    <span class="material-symbols-rounded">error</span>
+    <span id="errorToastMsg">發生錯誤</span>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

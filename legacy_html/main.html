@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&amp;family=Manrope:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#d0d5d8",
+                        "tertiary-dim": "#583ba5",
+                        "secondary-fixed-dim": "#9fc6ff",
+                        "on-surface-variant": "#595c5e",
+                        "surface-container-high": "#dfe3e6",
+                        "secondary-container": "#b7d3ff",
+                        "secondary": "#005da7",
+                        "primary-dim": "#912063",
+                        "surface": "#f5f7f9",
+                        "on-error-container": "#510017",
+                        "surface-container": "#e5e9eb",
+                        "surface-container-low": "#eef1f3",
+                        "on-tertiary": "#f7f0ff",
+                        "background": "#f5f7f9",
+                        "on-primary-fixed-variant": "#5b003b",
+                        "primary": "#a02d70",
+                        "outline-variant": "#abadaf",
+                        "secondary-fixed": "#b7d3ff",
+                        "on-secondary": "#eef3ff",
+                        "on-error": "#ffefef",
+                        "primary-fixed-dim": "#e666aa",
+                        "tertiary-fixed-dim": "#ad92ff",
+                        "tertiary": "#6448b2",
+                        "on-tertiary-container": "#381485",
+                        "inverse-primary": "#f673b7",
+                        "tertiary-container": "#baa3ff",
+                        "inverse-surface": "#0b0f10",
+                        "on-secondary-fixed": "#003563",
+                        "surface-container-highest": "#d9dde0",
+                        "on-surface": "#2c2f31",
+                        "surface-tint": "#a02d70",
+                        "surface-variant": "#d9dde0",
+                        "on-tertiary-fixed": "#1d0054",
+                        "on-secondary-container": "#004884",
+                        "surface-bright": "#f5f7f9",
+                        "on-primary": "#ffeff3",
+                        "error-container": "#f74b6d",
+                        "on-primary-container": "#4a002f",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed": "#000000",
+                        "tertiary-fixed": "#baa3ff",
+                        "outline": "#747779",
+                        "error-dim": "#a70138",
+                        "inverse-on-surface": "#9a9d9f",
+                        "secondary-dim": "#005192",
+                        "on-secondary-fixed-variant": "#005294",
+                        "on-background": "#2c2f31",
+                        "primary-container": "#f673b7",
+                        "on-tertiary-fixed-variant": "#41208e",
+                        "error": "#b41340"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .dreamy-gradient {
+            background: linear-gradient(135deg, #fce7f3 0%, #e0f2fe 50%, #f3e8ff 100%);
+            background-size: 400% 400%;
+        }
+
+        .iridescent-sphere {
+            background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, rgba(246, 115, 183, 0.4) 40%, rgba(186, 163, 255, 0.3) 70%, rgba(159, 198, 255, 0.2) 100%);
+            box-shadow: inset -10px -10px 40px rgba(255, 255, 255, 0.5),
+                0 0 60px rgba(216, 180, 254, 0.2);
+            backdrop-filter: blur(8px);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .animate-float {
+            animation: float 6s ease-in-out infinite;
+        }
+    </style>
+    <style>
+        body {
+            min-height: max(884px, 100dvh);
+        }
+    </style>
+    <style>
+        @keyframes breathing {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        @keyframes pulse-glow {
+
+            0%,
+            100% {
+                box-shadow: inset -10px -10px 40px rgba(255, 255, 255, 0.5), 0 0 60px rgba(216, 180, 254, 0.2);
+            }
+
+            50% {
+                box-shadow: inset -10px -10px 40px rgba(255, 255, 255, 0.6), 0 0 80px rgba(216, 180, 254, 0.4);
+            }
+        }
+
+        .animate-breathing {
+            animation: breathing 3s ease-in-out infinite, pulse-glow 3s ease-in-out infinite;
+        }
+
+        .transition-calm {
+            transition: all 0.3s ease-in-out;
+        }
+
+        .modal-transition {
+            animation: slideUpFade 0.3s ease-out forwards;
+        }
+
+        @keyframes slideUpFade {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+                backdrop-filter: blur(0px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                backdrop-filter: blur(12px);
+            }
+        }
+    </style>
+</head>
+
+<body class="font-body text-on-surface bg-surface h-screen overflow-hidden">
+    <!-- The Entire Screen Canvas: Seamless Dreamy Gradient -->
+    <main class="relative w-full h-full flex flex-col dreamy-gradient overflow-hidden">
+        <!-- TopAppBar: Styled from COMPONENTS_17 -->
+        <header
+            class="w-full top-0 sticky z-50 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-xl shadow-[0_40px_40px_rgba(160,45,112,0.06)]">
+            <div class="flex items-center justify-between px-6 py-4 w-full">
+                <div class="flex items-center gap-3">
+                    <div
+                        class="w-10 h-10 rounded-full bg-gradient-to-tr from-primary/20 to-secondary/20 flex items-center justify-center border border-white/40 shadow-sm overflow-hidden">
+                        <span class="material-symbols-outlined text-primary-dim opacity-70 text-xl"
+                            data-icon="person">person</span>
+                    </div>
+                    <h1 class="font-headline tracking-tight text-on-surface-variant font-semibold text-sm">
+                        Hello, <span
+                            class="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-pink-500 animate-pulse">Name</span>.
+                        Your sanctuary awaits
+                    </h1>
+                </div>
+                <button
+                    class="w-10 h-10 flex items-center justify-center text-on-surface-variant/60 hover:opacity-80 transition-opacity active:scale-95 transition-calm active:scale-95 hover:scale-105">
+                    <span class="material-symbols-outlined" data-icon="settings">settings</span>
+                </button>
+            </div>
+        </header>
+        <!-- Ambient Orbs (Design System Signature) -->
+        <div
+            class="absolute top-1/4 left-1/4 w-96 h-96 bg-tertiary-container/20 rounded-full blur-[100px] pointer-events-none">
+        </div>
+        <div
+            class="absolute bottom-1/4 right-1/4 w-80 h-80 bg-secondary-container/20 rounded-full blur-[100px] pointer-events-none">
+        </div>
+        <!-- The Sole Main Subject: Pristine Iridescent Sphere -->
+        <div class="relative flex-1 flex flex-col items-center justify-center -mt-12">
+            <div class="relative flex flex-col items-center">
+                <div
+                    class="iridescent-sphere w-64 h-64 md:w-80 md:h-80 rounded-full flex items-center justify-center transition-all duration-700 animate-breathing active:scale-95 transition-transform duration-300">
+                    <!-- Engraved Name -->
+                    <span
+                        class="font-label font-medium text-primary tracking-[0.2em] opacity-40 text-sm md:text-base">Aria</span>
+                </div>
+                <!-- Shadow projection for depth -->
+                <div class="w-32 h-4 bg-black/5 blur-xl rounded-full mt-12 opacity-30"></div>
+            </div>
+        </div>
+        <!-- Floating Start Chat Bubble (Preserved from Screen 8) -->
+        <div class="absolute bottom-32 left-0 right-0 flex justify-center z-40">
+            <button
+                class="group relative flex items-center justify-center p-5 rounded-full bg-surface-container-lowest/40 backdrop-blur-2xl border border-white/20 shadow-[0_0_30px_rgba(160,45,112,0.1)] active:scale-95 transition-all duration-500 transition-calm active:scale-95 hover:scale-105">
+                <div
+                    class="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 to-secondary/20 opacity-0 group-hover:opacity-100 transition-opacity">
+                </div>
+                <span class="material-symbols-outlined text-primary-dim opacity-70"
+                    data-icon="bubble_chart">bubble_chart</span>
+            </button>
+        </div>
+        <!-- Bottom Navigation Bar: Styled from COMPONENTS_17 -->
+        <nav
+            class="fixed bottom-8 left-0 right-0 mx-auto w-[90%] max-w-md z-50 flex justify-around items-center h-20 bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl border border-white/10 dark:border-slate-800/20 rounded-full shadow-[0_20px_50px_rgba(186,163,255,0.15)]">
+            <!-- Home -->
+            <a class="flex items-center justify-center bg-gradient-to-tr from-purple-500/20 to-pink-500/20 text-purple-600 dark:text-purple-300 rounded-full p-4 shadow-inner hover:scale-110 active:scale-90 transition-all duration-300 transition-calm active:scale-95 hover:scale-105"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="home">home</span>
+            </a>
+            <!-- Journal -->
+            <a class="flex items-center justify-center text-slate-400 dark:text-slate-500 p-4 hover:scale-110 active:scale-90 transition-all duration-300 transition-calm active:scale-95 hover:scale-105"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+            </a>
+            <!-- Breathe -->
+            <a class="flex items-center justify-center text-slate-400 dark:text-slate-500 p-4 hover:scale-110 active:scale-90 transition-all duration-300 transition-calm active:scale-95 hover:scale-105"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="air">air</span>
+            </a>
+            <!-- Profile -->
+            <a class="flex items-center justify-center text-slate-400 dark:text-slate-500 p-4 hover:scale-110 active:scale-90 transition-all duration-300 transition-calm active:scale-95 hover:scale-105"
+                href="#">
+                <span class="material-symbols-outlined" data-icon="person">person</span>
+            </a>
+        </nav>
+        <!-- Decorative Subtle Grain Layer for Texture -->
+        <div class="absolute inset-0 pointer-events-none opacity-[0.03] mix-blend-overlay">
+            <svg viewbox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+                <filter id="noiseFilter">
+                    <feturbulence basefrequency="0.65" numoctaves="3" stitchtiles="stitch" type="fractalNoise">
+                    </feturbulence>
+                </filter>
+                <rect filter="url(#noiseFilter)" height="100%" width="100%"></rect>
+            </svg>
+        </div>
+    </main>
+    <!-- Visual Identity Image Contexts -->
+    <div class="hidden">
+        <img data-alt="soft pastel gradient background with pink and blue hues flowing seamlessly like an ethereal morning sky"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqq0e6AJo11jam0iDgu2ViysnjwXt3V-BpMzRJgjBAAbgwM-xZipLYB-_kzyrhmNF-Jh7on1i7LbjcDamgepxbVFRpdRlrx1DquJ-CowuL0zOQHISrLl44R6F1QNpi27NnvZJr2xiTUveJlbQqRy4u7mVOZMljGjuhV0-NomCUN5eyc1XzTDa5iKrc4p31mmSpwRHCQFMKTvZ8CoMvy4uFegUwyhAeWkfEHCiGjHQX7su0WsUh6lGLOpcvcvqb17pNTAXITmhHDHQ" />
+        <img data-alt="a single floating iridescent pearl sphere with soft cloud like texture in the center of a dreamlike space"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCAeNHz8xUXQJZx9BKVSnb-r3icC3TSMWGEriE5fWqWwDjAqxmpqK52-6G87awq8rdJbmTf047T0nAKWXhDyBJjWg-1BS0astcXT0NZvk8CxpY46ntorLcLxHVmRT3kcXO_YMTKYClTmb32vl2OdsCORbLilk8H18Fx3Te8MnTylartd7a0MfJpuNbj1dgs15fItzFXrGsetVfI-BYsNY3ul08DVg1yTHdOlN5VG7DJVMXlf5cZL0T7WUb41wGTN-hpnhjge9VN-LA" />
+    </div>
+</body>
+
+</html>

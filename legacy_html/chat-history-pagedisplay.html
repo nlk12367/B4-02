@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Logs History - The Ethereal Interface</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#5b003b",
+                        "on-background": "#2c2f31",
+                        "primary-fixed": "#f673b7",
+                        "on-tertiary-fixed-variant": "#41208e",
+                        "on-primary-container": "#4a002f",
+                        "primary-container": "#f673b7",
+                        "inverse-on-surface": "#9a9d9f",
+                        "surface-variant": "#d9dde0",
+                        "error": "#b41340",
+                        "on-error-container": "#510017",
+                        "outline-variant": "#abadaf",
+                        "on-tertiary": "#f7f0ff",
+                        "tertiary": "#6448b2",
+                        "surface": "#f5f7f9",
+                        "surface-dim": "#d0d5d8",
+                        "surface-container-highest": "#d9dde0",
+                        "tertiary-container": "#baa3ff",
+                        "background": "#f5f7f9",
+                        "surface-container-high": "#dfe3e6",
+                        "inverse-primary": "#f673b7",
+                        "tertiary-fixed-dim": "#ad92ff",
+                        "inverse-surface": "#0b0f10",
+                        "surface-container-lowest": "#ffffff",
+                        "on-secondary-fixed": "#003563",
+                        "secondary": "#005da7",
+                        "surface-tint": "#a02d70",
+                        "on-secondary-container": "#004884",
+                        "tertiary-dim": "#583ba5",
+                        "secondary-fixed-dim": "#9fc6ff",
+                        "outline": "#747779",
+                        "on-secondary": "#eef3ff",
+                        "secondary-fixed": "#b7d3ff",
+                        "on-tertiary-fixed": "#1d0054",
+                        "surface-container-low": "#eef1f3",
+                        "on-secondary-fixed-variant": "#005294",
+                        "on-primary-fixed": "#000000",
+                        "primary-fixed-dim": "#e666aa",
+                        "tertiary-fixed": "#baa3ff",
+                        "on-tertiary-container": "#381485",
+                        "on-error": "#ffefef",
+                        "secondary-dim": "#005192",
+                        "error-container": "#f74b6d",
+                        "on-primary": "#ffeff3",
+                        "on-surface": "#2c2f31",
+                        "on-surface-variant": "#595c5e",
+                        "surface-bright": "#f5f7f9",
+                        "primary-dim": "#912063",
+                        "primary": "#a02d70",
+                        "surface-container": "#e5e9eb",
+                        "error-dim": "#a70138",
+                        "secondary-container": "#b7d3ff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "display": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+
+        .font-plus-jakarta {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        .nebula-bg {
+            background: radial-gradient(circle at 10% 20%, rgba(186, 163, 255, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(246, 115, 183, 0.15) 0%, transparent 40%);
+        }
+    </style>
+</head>
+
+<body
+    class="bg-surface text-on-surface min-h-screen relative overflow-x-hidden nebula-bg selection:bg-primary-container selection:text-on-primary-container">
+    <!-- Signature Background Orbs -->
+    <div
+        class="fixed top-[-10%] right-[-10%] w-[500px] h-[500px] bg-tertiary-container/20 blur-[100px] rounded-full z-0">
+    </div>
+    <div class="fixed bottom-[-5%] left-[-5%] w-[400px] h-[400px] bg-primary-container/10 blur-[80px] rounded-full z-0">
+    </div>
+    <!-- Logs_Frame_Main -->
+    <main class="relative z-10 pb-32">
+        <!-- TopAppBar Navigation Cluster -->
+        <header
+            class="sticky top-0 z-50 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl shadow-[0_8px_32px_rgba(160,45,112,0.06)] flex justify-between items-center w-full px-6 py-4"
+            id="TopAppBar">
+            <div class="flex items-center gap-4">
+                <button
+                    class="material-symbols-outlined text-fuchsia-600 dark:text-fuchsia-300 hover:bg-fuchsia-50/50 dark:hover:bg-fuchsia-900/20 transition-colors active:scale-95 duration-200 p-2 rounded-full">
+                    arrow_back
+                </button>
+                <h1 class="font-plus-jakarta text-xl font-medium tracking-tight text-on-surface">History</h1>
+            </div>
+            <div class="flex items-center gap-2">
+                <button
+                    class="material-symbols-outlined text-slate-500 dark:text-slate-400 hover:bg-fuchsia-50/50 dark:hover:bg-fuchsia-900/20 transition-colors active:scale-95 duration-200 p-2 rounded-full">
+                    more_vert
+                </button>
+            </div>
+        </header>
+        <!-- Logs_Container_Hero -->
+        <section class="px-6 pt-8 pb-4" id="Logs_Container_Hero">
+            <div class="flex flex-col gap-1">
+                <h2 class="font-display text-4xl font-extrabold tracking-tight text-on-surface" id="Logs_Text_Title">
+                    History</h2>
+                <p class="font-body text-on-surface-variant text-lg" id="Logs_Text_Subtitle">Your emotional journey</p>
+            </div>
+        </section>
+        <!-- Logs_Container_Search_Filter -->
+        <section class="px-6 flex flex-col gap-6 mt-4" id="Logs_Container_Controls">
+            <!-- Logs_Input_Search -->
+            <div class="relative w-full">
+                <span
+                    class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+                <input
+                    class="w-full pl-12 pr-6 py-4 bg-surface-container-lowest border-none ring-1 ring-outline-variant/15 rounded-full focus:ring-primary/40 focus:ring-2 transition-all outline-none text-on-surface placeholder:text-on-surface-variant/60 shadow-sm"
+                    id="Logs_Input_Search" placeholder="Search feelings or keywords..." type="text">
+            </div>
+            <!-- Logs_Container_Tabs -->
+            <div class="flex gap-2 p-1 bg-surface-container-low rounded-full w-max" id="Logs_Container_Tabs">
+                <button
+                    class="px-6 py-2 rounded-full bg-surface-container-lowest text-primary font-semibold shadow-sm text-sm transition-all"
+                    id="Logs_Tab_All">All</button>
+                <button
+                    class="px-6 py-2 rounded-full text-on-surface-variant font-medium hover:text-primary transition-all text-sm"
+                    id="Logs_Tab_Positive">Important</button>
+                <button
+                    class="px-6 py-2 rounded-full text-on-surface-variant font-medium hover:text-primary transition-all text-sm"
+                    id="Logs_Tab_Negative">Other</button>
+            </div>
+        </section>
+        <!-- Logs_List_Records -->
+        <section class="px-6 mt-8 flex flex-col gap-4" id="Logs_List_Records">
+            <!-- Logs_Card_Record 1 -->
+            <div
+                class="group relative bg-surface-container-lowest/70 backdrop-blur-md rounded-lg p-5 flex flex-col gap-3 transition-all hover:translate-y-[-2px] hover:shadow-xl hover:shadow-primary/5 border-l-4 border-tertiary shadow-sm">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-label uppercase tracking-widest text-on-surface-variant font-bold"
+                        id="Logs_Text_Date">Today, 10:24 AM</span>
+                    <span
+                        class="px-3 py-1 bg-tertiary-container/30 text-on-tertiary-container rounded-full text-[10px] font-bold uppercase tracking-wider"
+                        id="Logs_Tag_Emotion">Serene</span>
+                </div>
+                <p class="font-body text-on-surface leading-relaxed line-clamp-2" id="Logs_Text_Summary">The morning
+                    reflection brought a sense of profound clarity. The sunlight through the frosted window felt like a
+                    soft embrace from the universe.</p>
+                <div class="flex gap-4 mt-2">
+                    <img class="w-16 h-16 rounded-md object-cover shadow-sm grayscale hover:grayscale-0 transition-all duration-500"
+                        data-alt="A macro photography shot of soft morning sunlight hitting a textured frosted glass surface, creating a series of ethereal light diffusions and organic shadows. The color palette consists of soft warm whites and very pale pinks, evoking a sense of calm and clarity in a minimalist, airy setting."
+                        src="https://lh3.googleusercontent.com/aida/ADBb0uh1u_ct7PCx3SxBYa1LxEyfpEHTvw8GnfpA84YN2utFjPNQruN0bAMnsZ2n9jCa5GbrbN49KrhqU2PVoYxKzQHcl8T21P5_pHxNg3c_lPH_yBZHcnl4c0aTsDk_2619czk4rvnp1DwxTXOwFxdu9qDF0zFAIAkdMrK9MvWBU_lkxRewsong9aLm_7AvbSQgXAhAgxKOjSPz3hCAaak8tKBUteBWaGNMPjJZLlsB9jnlCaaD33nAyZUZmYai5w5n3arIuxo5wixFtA">
+                    <img class="w-16 h-16 rounded-md object-cover shadow-sm grayscale hover:grayscale-0 transition-all duration-500"
+                        data-alt="A clean, minimalist digital rendering of abstract flowing waves in soft lavender and fuchsia. The lighting is high-key and atmospheric, with a shallow depth of field focusing on the smooth, iridescent curves that resemble silk caught in a gentle breeze. The mood is peaceful and high-end."
+                        src="https://lh3.googleusercontent.com/aida/ADBb0uj6h0osfC6NsDdFiKGUg80F8T1SdLjqoH37mplFezXBCjWMIaS4Gi_xV5DOTH5Mup5yhB9EzK4ZmdKS2voZFqGBg-1Xgb9uErHN8P5J-3J5UM89WXDIsGk8av8MCHdF89DdJzBF_ZwkPeKjeSFWmM_vXDYhFbJb8tFyghBcQgj9HRJyN-5qkPxmc48ru7O_GvN98GvEJe237aYAEF9cHFL-Lvk2FZko8BsJs9anxWtFY7FhcpvEGRQTsqI">
+                </div>
+            </div>
+            <!-- Logs_Card_Record 2 -->
+            <div
+                class="group relative bg-surface-container-lowest/70 backdrop-blur-md rounded-lg p-5 flex flex-col gap-3 transition-all hover:translate-y-[-2px] hover:shadow-xl hover:shadow-primary/5 border-l-4 border-primary shadow-sm">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-label uppercase tracking-widest text-on-surface-variant font-bold"
+                        id="Logs_Text_Date">Yesterday, 8:45 PM</span>
+                    <span
+                        class="px-3 py-1 bg-primary-container/30 text-on-primary-container rounded-full text-[10px] font-bold uppercase tracking-wider"
+                        id="Logs_Tag_Emotion">Vibrant</span>
+                </div>
+                <p class="font-body text-on-surface leading-relaxed line-clamp-2" id="Logs_Text_Summary">Completed the
+                    deep-focus session with unexpected energy. Feeling accomplished and ready for the week ahead with a
+                    renewed spirit.</p>
+                <div class="flex gap-4 mt-2">
+                    <img class="w-16 h-16 rounded-md object-cover shadow-sm grayscale hover:grayscale-0 transition-all duration-500"
+                        data-alt="A sophisticated abstract composition featuring glowing magenta orbs floating in a deep navy and violet atmospheric space. The spheres have a soft inner glow and sharp outer edges, creating a high-contrast digital art look that feels both energetic and serene. Soft bokeh light leaks add depth to the weightless scene."
+                        src="https://lh3.googleusercontent.com/aida/ADBb0uhJl5jk5HxyQLjMaC4TlMnSIlrlnp6TP-wq4n_O9RxYb3taXOBTGVaFNgjhd3DGbMAZHB5KRFhJyiym4er316fj55DpuTyYbuoEROZnLxo901VGuCe49Y6qXpgJBaNl9iulridHYG3WgPJXOIZk7yVCIaBI_qe2hNYvl77gjktXXvpwhk43MyeWbvMfsjB5cfghRo9gPFU9Y2VYNqDYGCmGqnUGYi_fyrzrmGwdxcq3XzpOU7LEw-Jz1Q">
+                </div>
+            </div>
+            <!-- Logs_Card_Record 3 -->
+            <div
+                class="group relative bg-surface-container-lowest/70 backdrop-blur-md rounded-lg p-5 flex flex-col gap-3 transition-all hover:translate-y-[-2px] hover:shadow-xl hover:shadow-primary/5 border-l-4 border-secondary shadow-sm">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-label uppercase tracking-widest text-on-surface-variant font-bold"
+                        id="Logs_Text_Date">Oct 24, 2:15 PM</span>
+                    <span
+                        class="px-3 py-1 bg-secondary-container/30 text-on-secondary-container rounded-full text-[10px] font-bold uppercase tracking-wider"
+                        id="Logs_Tag_Emotion">Reflective</span>
+                </div>
+                <p class="font-body text-on-surface leading-relaxed line-clamp-2" id="Logs_Text_Summary">Stumbled upon
+                    an old memory. It was bittersweet but provided a necessary perspective on how far I've come since
+                    last summer.</p>
+            </div>
+            <!-- Logs_Card_Record 4 (Asymmetric Layout for Variety) -->
+            <div
+                class="group relative bg-surface-container-low rounded-lg p-5 flex flex-col gap-3 transition-all hover:shadow-md border-l-4 border-outline-variant/30 shadow-sm opacity-80">
+                <div class="flex justify-between items-start">
+                    <span class="text-xs font-label uppercase tracking-widest text-on-surface-variant font-bold"
+                        id="Logs_Text_Date">Oct 22, 11:00 PM</span>
+                    <span
+                        class="px-3 py-1 bg-surface-variant text-on-surface-variant rounded-full text-[10px] font-bold uppercase tracking-wider"
+                        id="Logs_Tag_Emotion">Restless</span>
+                </div>
+                <p class="font-body text-on-surface-variant leading-relaxed line-clamp-2" id="Logs_Text_Summary">
+                    Difficult to find the center tonight. Thoughts kept drifting toward the unknown. Using breath-work
+                    to anchor the mind.</p>
+                <div class="flex gap-4 mt-2 overflow-hidden">
+                    <img class="w-full h-24 rounded-md object-cover shadow-sm grayscale opacity-50"
+                        data-alt="An artistic blurred photography piece capturing urban lights at dusk through a rain-streaked window. The palette is dominated by cool blues and greys with soft spots of fuchsia light breaking through the gloom. The image conveys a mood of quiet introspection and restless nighttime reflection in a high-end minimalist style."
+                        src="https://lh3.googleusercontent.com/aida/ADBb0ujagw51e944M10xPQNRARcIPilD4Jf0hDR2S2visKSS9WZl2Jp1-jZqphtL6Iu7EnJzRlDg8MiJxSeu8St1k1ZBXYdQFu8TXkL_WAV9ZEcPnkQejIAgg0LU_JazzPqhKvDf1M-_FXqlRekW-96PaMYgH0B4NzvFMoi1PPyPyfYCdIOc0kgOG32OlgoxemqxcYuYThoVYsecgL7Rl5Is5k60WoYSMyaxgfqPaa1rs1NWx54DQkm69nI6-VAaFJoew8z13X-HF5V3hg">
+                </div>
+            </div>
+        </section>
+    </main>
+    <!-- BottomNavBar -->
+    <nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/70 dark:bg-slate-900/70 backdrop-blur-2xl shadow-[0_-10px_40px_rgba(186,163,255,0.1)] rounded-t-[3rem]"
+        id="BottomNavBar">
+        <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-fuchsia-500 transition-all active:scale-90"
+            href="#">
+            <span class="material-symbols-outlined">home</span>
+            <span class="font-manrope text-[11px] font-semibold tracking-wide uppercase mt-1">Home</span>
+        </a>
+        <a class="flex flex-col items-center justify-center bg-fuchsia-100 dark:bg-fuchsia-900/40 text-fuchsia-700 dark:text-fuchsia-200 rounded-full px-5 py-2 hover:text-fuchsia-500 transition-all active:scale-90"
+            href="#">
+            <span class="material-symbols-outlined">history</span>
+            <span class="font-manrope text-[11px] font-semibold tracking-wide uppercase mt-1">History</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-fuchsia-500 transition-all active:scale-90"
+            href="#">
+            <span class="material-symbols-outlined">analytics</span>
+            <span class="font-manrope text-[11px] font-semibold tracking-wide uppercase mt-1">Insights</span>
+        </a>
+        <a class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 px-5 py-2 hover:text-fuchsia-500 transition-all active:scale-90"
+            href="#">
+            <span class="material-symbols-outlined">person</span>
+            <span class="font-manrope text-[11px] font-semibold tracking-wide uppercase mt-1">Profile</span>
+        </a>
+    </nav>
+    <!-- Floating Action Button (Supressed as per logic: Task-focused/Details page context) -->
+
+
+</body>
+
+</html>

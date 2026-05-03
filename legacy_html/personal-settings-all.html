@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Your Space - Mindful Sanctuary</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@400;500;600&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet">
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-low": "#eef1f3",
+                        "on-tertiary-container": "#381485",
+                        "on-surface-variant": "#595c5e",
+                        "inverse-on-surface": "#9a9d9f",
+                        "secondary-fixed": "#b7d3ff",
+                        "primary-fixed-dim": "#e666aa",
+                        "on-error-container": "#510017",
+                        "surface-container-highest": "#d9dde0",
+                        "inverse-primary": "#f673b7",
+                        "primary-fixed": "#f673b7",
+                        "tertiary-fixed-dim": "#ad92ff",
+                        "inverse-surface": "#0b0f10",
+                        "on-secondary": "#eef3ff",
+                        "error": "#b41340",
+                        "tertiary": "#6448b2",
+                        "primary": "#a02d70",
+                        "primary-container": "#f673b7",
+                        "error-dim": "#a70138",
+                        "surface-container-high": "#dfe3e6",
+                        "surface-tint": "#a02d70",
+                        "on-surface": "#2c2f31",
+                        "on-tertiary": "#f7f0ff",
+                        "surface-bright": "#f5f7f9",
+                        "on-tertiary-fixed": "#1d0054",
+                        "secondary-dim": "#005192",
+                        "tertiary-container": "#baa3ff",
+                        "on-primary-fixed": "#000000",
+                        "surface-dim": "#d0d5d8",
+                        "secondary-container": "#b7d3ff",
+                        "secondary": "#005da7",
+                        "on-secondary-fixed-variant": "#005294",
+                        "on-tertiary-fixed-variant": "#41208e",
+                        "secondary-fixed-dim": "#9fc6ff",
+                        "on-secondary-container": "#004884",
+                        "tertiary-fixed": "#baa3ff",
+                        "surface-container": "#e5e9eb",
+                        "on-secondary-fixed": "#003563",
+                        "on-primary-fixed-variant": "#5b003b",
+                        "surface": "#f5f7f9",
+                        "background": "#f5f7f9",
+                        "outline": "#747779",
+                        "on-primary": "#ffeff3",
+                        "on-error": "#ffefef",
+                        "on-primary-container": "#4a002f",
+                        "on-background": "#2c2f31",
+                        "surface-variant": "#d9dde0",
+                        "primary-dim": "#912063",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#abadaf",
+                        "tertiary-dim": "#583ba5",
+                        "error-container": "#f74b6d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "1rem",
+                        "lg": "2rem",
+                        "xl": "3rem",
+                        "full": "9999px"
+                    },
+                    "fontFamily": {
+                        "headline": ["Plus Jakarta Sans"],
+                        "display": ["Plus Jakarta Sans"],
+                        "body": ["Manrope"],
+                        "label": ["Manrope"]
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            background-color: #f5f7f9;
+            overflow-x: hidden;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+        }
+
+        .orb {
+            filter: blur(80px);
+            z-index: -1;
+        }
+    </style>
+</head>
+
+<body class="font-body text-on-surface min-h-screen pb-32">
+    <!-- Ambient Background Elements -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="orb absolute top-1/4 -right-20 w-96 h-96 bg-tertiary-container/30 rounded-full"></div>
+        <div class="orb absolute -bottom-20 -left-20 w-[30rem] h-[30rem] bg-primary-container/20 rounded-full"></div>
+    </div>
+    <!-- Top Navigation Anchor -->
+    <header
+        class="fixed top-0 w-full z-50 bg-slate-50/50 dark:bg-slate-950/50 backdrop-blur-xl shadow-[0_20px_40px_rgba(160,45,112,0.05)] flex items-center justify-between px-6 h-16">
+        <div class="flex items-center gap-4">
+            <span
+                class="material-symbols-outlined text-pink-600 cursor-pointer hover:opacity-80 transition-opacity">arrow_back</span>
+        </div>
+        <h1 class="font-display text-lg tracking-tight font-semibold text-pink-700">Mindful Sanctuary</h1>
+        <div class="flex items-center gap-4">
+            <span
+                class="material-symbols-outlined text-pink-600 cursor-pointer hover:opacity-80 transition-opacity">settings</span>
+        </div>
+    </header>
+    <main class="max-w-2xl mx-auto px-6 pt-24 space-y-8">
+        <!-- Header Section -->
+        <section class="space-y-1">
+            <h2 class="font-display text-4xl font-extrabold tracking-tighter text-on-surface">Your Space</h2>
+            <p class="text-on-surface-variant font-medium">Shape how Aria supports you</p>
+        </section>
+        <!-- Profile Card -->
+        <section
+            class="glass-card rounded-lg p-6 shadow-[0_8px_32px_rgba(160,45,112,0.04)] flex items-center gap-5 border border-white/40">
+            <div class="relative">
+                <div class="w-20 h-20 rounded-full p-1 bg-gradient-to-tr from-primary to-tertiary shadow-lg">
+                    <img alt="User Profile Avatar" class="w-full h-full rounded-full object-cover"
+                        data-alt="A serene and ethereal portrait of a digital persona named Aria. The image has a soft, glowing iridescent quality with highlights of pink and lavender. Aria is depicted in a minimalist, dreamlike environment with floating particles of light, suggesting a state of calm growth and gentle presence. The lighting is ethereal and high-key, aligning with the weightless sanctuary theme."
+                        src="https://lh3.googleusercontent.com/aida/ADBb0ui5pD12ZphZxag0e1ZT8I0yUWdBsuyWWcJ2lxkKJ6260mNHfflk7-IyKbR_UUF5I9aKdmlJbDJOUqson2J31HHQqoGX9JRxf7_eTlC-QOWsr_nFBJbR7m0oICJjLoVSOORM6BzmOG71W3UO3JnlBUdwnR-KP2rBFCCjCTcKx3lAsuHoL0Tp7JY-ZG0_wrzCNwtmdbCc96ZrPwV6eBJQAUeU3bIXXj94Nwreli87QQ2kS6kh8dXZMzDvoA">
+                </div>
+                <div
+                    class="absolute bottom-0 right-0 w-5 h-5 bg-green-400 border-2 border-white rounded-full shadow-sm">
+                </div>
+            </div>
+            <div class="space-y-1">
+                <h3 class="font-display text-2xl font-bold text-on-surface">LAN</h3>
+                <p class="text-on-surface-variant text-sm font-medium">Currently attending university in Taichung.</p>
+            </div>
+        </section>
+        <!-- AI Companion Style (Highlighted) -->
+        <section class="space-y-4">
+            <div class="flex items-center gap-2 px-1">
+                <span class="material-symbols-outlined text-primary text-sm"
+                    style="font-variation-settings: &quot;FILL&quot; 1;">colors_spark</span>
+                <h4 class="font-display font-bold text-sm uppercase tracking-widest text-on-surface-variant">AI&nbsp;
+                    Style</h4>
+            </div>
+            <div
+                class="glass-card rounded-[2.5rem] p-2 flex items-center justify-between border border-white/30 shadow-sm">
+                <button
+                    class="flex-1 py-3 px-4 rounded-full bg-gradient-to-br from-primary to-primary-container text-white font-semibold text-sm shadow-md transition-transform active:scale-95">
+                    Gentle 🌙
+                </button>
+                <button
+                    class="flex-1 py-3 px-4 rounded-full text-on-surface-variant font-semibold text-sm hover:bg-white/40 transition-all">
+                    Balanced
+                </button>
+                <button
+                    class="flex-1 py-3 px-4 rounded-full text-on-surface-variant font-semibold text-sm hover:bg-white/40 transition-all">
+                    Rational ☀️
+                </button>
+            </div>
+        </section>
+        <!-- Interaction Style Chips -->
+        <section class="space-y-4">
+            <div class="flex items-center gap-2 px-1">
+                <span class="material-symbols-outlined text-primary text-sm">chat_bubble</span>
+                <h4 class="font-display font-bold text-sm uppercase tracking-widest text-on-surface-variant">Interaction
+                    Style</h4>
+            </div>
+            <div class="flex flex-wrap gap-3">
+                <div
+                    class="px-5 py-2.5 rounded-full bg-white/60 border border-white/20 text-on-surface font-medium text-sm shadow-sm cursor-pointer hover:bg-white transition-all">
+                    More listening</div>
+                <div
+                    class="px-5 py-2.5 rounded-full bg-primary/10 border border-primary/20 text-primary font-bold text-sm shadow-sm cursor-pointer ring-2 ring-primary/20">
+                    More guidance</div>
+                <div
+                    class="px-5 py-2.5 rounded-full bg-white/60 border border-white/20 text-on-surface font-medium text-sm shadow-sm cursor-pointer hover:bg-white transition-all">
+                    Reflective questioning</div>
+            </div>
+        </section>
+        <!-- Personal Settings -->
+        <section class="space-y-4">
+            <h4 class="px-1 font-display font-bold text-sm uppercase tracking-widest text-on-surface-variant">Personal
+            </h4>
+            <div
+                class="glass-card rounded-lg divide-y divide-white/10 overflow-hidden border border-white/20 shadow-sm">
+                <div
+                    class="flex items-center justify-between p-5 hover:bg-white/40 transition-colors cursor-pointer group">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-secondary-container/30 flex items-center justify-center text-secondary">
+                            <span class="material-symbols-outlined">person</span>
+                        </div>
+                        <div>
+                            <p class="text-xs text-on-surface-variant font-medium">Name</p>
+                            <p class="font-semibold text-on-surface">Xiao Lan</p>
+                        </div>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+                </div>
+                <div
+                    class="flex items-center justify-between p-5 hover:bg-white/40 transition-colors cursor-pointer group">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-tertiary-container/30 flex items-center justify-center text-tertiary">
+                            <span class="material-symbols-outlined">mail</span>
+                        </div>
+                        <div>
+                            <p class="text-xs text-on-surface-variant font-medium">Email</p>
+                            <p class="font-semibold text-on-surface">aria@gmail.com</p>
+                        </div>
+                    </div>
+                    <span
+                        class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
+                </div>
+            </div>
+        </section>
+        <!-- Notifications -->
+        <section class="space-y-4">
+            <h4 class="px-1 font-display font-bold text-sm uppercase tracking-widest text-on-surface-variant">
+                Notifications</h4>
+            <div class="glass-card rounded-lg p-5 space-y-6 border border-white/20 shadow-sm">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">notifications_active</span>
+                        </div>
+                        <span class="font-semibold text-on-surface">Daily check-in</span>
+                    </div>
+                    <div
+                        class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-primary-container/40 transition-colors duration-200 ease-in-out focus:outline-none">
+                        <span
+                            class="translate-x-5 inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out"></span>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-4">
+                        <div
+                            class="w-10 h-10 rounded-full bg-primary-container/20 flex items-center justify-center text-primary">
+                            <span class="material-symbols-outlined">edit_note</span>
+                        </div>
+                        <span class="font-semibold text-on-surface">Reflection prompts</span>
+                    </div>
+                    <div
+                        class="relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent bg-slate-200 transition-colors duration-200 ease-in-out focus:outline-none">
+                        <span
+                            class="translate-x-0 inline-block h-5 w-5 transform rounded-full bg-white shadow-md ring-0 transition duration-200 ease-in-out"></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Privacy & Safety -->
+        <section class="space-y-4">
+            <h4 class="px-1 font-display font-bold text-sm uppercase tracking-widest text-on-surface-variant">Privacy
+                &amp; Safety</h4>
+            <div class="glass-card rounded-lg p-5 space-y-6 border border-white/20 shadow-sm">
+                <div class="flex items-start gap-4 cursor-pointer hover:bg-white/20 p-2 -m-2 rounded-xl transition-all">
+                    <div
+                        class="w-10 h-10 rounded-full bg-on-surface-variant/10 flex items-center justify-center text-on-surface-variant shrink-0">
+                        <span class="material-symbols-outlined">analytics</span>
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="font-semibold text-on-surface">Data usage</p>
+                        <p class="text-xs text-on-surface-variant">Manage how your interaction history is used to
+                            improve Aria's empathy.</p>
+                    </div>
+                </div>
+                <div class="flex items-start gap-4 cursor-pointer hover:bg-white/20 p-2 -m-2 rounded-xl transition-all">
+                    <div
+                        class="w-10 h-10 rounded-full bg-on-surface-variant/10 flex items-center justify-center text-on-surface-variant shrink-0">
+                        <span class="material-symbols-outlined">encrypted</span>
+                    </div>
+                    <div class="space-y-0.5">
+                        <p class="font-semibold text-on-surface">Conversation privacy</p>
+                        <p class="text-xs text-on-surface-variant">Your heart-to-hearts are encrypted. We never sell
+                            your personal reflections.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Decorative Ambient Visual -->
+        <section class="relative h-64 rounded-xl overflow-hidden mt-12 mb-8 group">
+            <img alt="Ambient Background"
+                class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:scale-105 transition-transform duration-1000"
+                data-alt="A wide-angle atmospheric background image for a wellness app. It features soft, rolling clouds or digital waves in a peaceful gradient of dawn colors—misty rose, pale gold, and soft blue. The overall feeling is one of expansive serenity and weightless peace, perfectly complementing the mindful sanctuary's core aesthetic of atmospheric volume and light-based depth."
+                src="https://lh3.googleusercontent.com/aida/ADBb0uj6h0osfC6NsDdFiKGUg80F8T1SdLjqoH37mplFezXBCjWMIaS4Gi_xV5DOTH5Mup5yhB9EzK4ZmdKS2voZFqGBg-1Xgb9uErHN8P5J-3J5UM89WXDIsGk8av8MCHdF89DdJzBF_ZwkPeKjeSFWmM_vXDYhFbJb8tFyghBcQgj9HRJyN-5qkPxmc48ru7O_GvN98GvEJe237aYAEF9cHFL-Lvk2FZko8BsJs9anxWtFY7FhcpvEGRQTsqI">
+            <div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent"></div>
+            <div class="absolute bottom-6 left-6 text-on-surface max-w-[200px]">
+                <p class="font-display font-bold text-lg leading-tight">Your privacy is our foundation.</p>
+                <p class="text-xs font-medium opacity-70 mt-1">Always secure, always yours.</p>
+            </div>
+        </section>
+    </main>
+    <!-- Navigation Shell -->
+    <nav class="fixed bottom-0 left-0 w-full flex justify-center pb-8 px-6 z-50">
+        <div
+            class="bg-white/60 dark:bg-slate-900/60 backdrop-blur-2xl border border-white/20 dark:border-slate-800/20 rounded-full shadow-[0_8px_32px_rgba(160,45,112,0.08)] flex items-center px-4 py-2 gap-2">
+            <a class="flex flex-col items-center justify-center text-slate-400 px-4 py-2 hover:bg-white/40 rounded-full transition-all group"
+                href="#">
+                <span class="material-symbols-outlined text-[24px]">air</span>
+                <span class="font-['Manrope'] text-[11px] font-medium tracking-wide">Breathe</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-slate-400 px-4 py-2 hover:bg-white/40 rounded-full transition-all group"
+                href="#">
+                <span class="material-symbols-outlined text-[24px]">auto_awesome</span>
+                <span class="font-['Manrope'] text-[11px] font-medium tracking-wide">Reflect</span>
+            </a>
+            <a class="flex flex-col items-center justify-center text-slate-400 px-4 py-2 hover:bg-white/40 rounded-full transition-all group"
+                href="#">
+                <span class="material-symbols-outlined text-[24px]">spa</span>
+                <span class="font-['Manrope'] text-[11px] font-medium tracking-wide">Spirit</span>
+            </a>
+            <a class="flex flex-col items-center justify-center bg-gradient-to-br from-pink-100 to-purple-100 text-pink-700 rounded-full px-6 py-2 transition-all scale-105 shadow-sm"
+                href="#">
+                <span class="material-symbols-outlined text-[24px]"
+                    style="font-variation-settings: &quot;FILL&quot; 1;">person</span>
+                <span class="font-['Manrope'] text-[11px] font-medium tracking-wide">Presence</span>
+            </a>
+        </div>
+    </nav>
+
+
+</body>
+
+</html>
