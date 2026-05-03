@@ -20,7 +20,7 @@ function App() {
           <UnityGame currentEmotion="Neutral" />
           
           {/* Scrollable Content Area */}
-          <div className="flex-1 overflow-y-auto overflow-x-hidden relative z-10 hide-scrollbar pb-24">
+          <div className="flex-1 overflow-y-auto overflow-x-hidden relative z-10 hide-scrollbar">
             <Routes>
               <Route path="/" element={<Navigate to="/home" replace />} />
               <Route path="/home" element={<Home />} />

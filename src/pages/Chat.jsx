@@ -108,7 +108,7 @@ export default function Chat() {
       </header>
 
       {/* Chat Messages */}
-      <main className="px-6 flex-1 overflow-y-auto pt-6 flex flex-col pb-4">
+      <main className="px-6 flex-1 pt-6 flex flex-col pb-32">
         <div className="flex justify-center mb-8">
           <span className="text-[11px] uppercase tracking-widest text-on-surface-variant font-medium opacity-60">Echoes of Today</span>
         </div>
@@ -153,7 +153,7 @@ export default function Chat() {
       </main>
 
       {/* Input Bar */}
-      <div className="sticky bottom-4 w-full z-40 px-6 mt-auto pb-4">
+      <div className="sticky bottom-[88px] w-full z-40 px-6 mt-auto">
         <div className="max-w-4xl mx-auto relative flex items-center gap-3 p-2 bg-white/35 backdrop-blur-[30px] rounded-full shadow-lg border border-white/50 h-[56px] focus-within:h-[64px] transition-all">
           <input type="file" ref={fileInputRef} accept="image/*" className="hidden" onChange={handleImageUpload} />
           <button onClick={() => fileInputRef.current?.click()} className="w-10 h-10 flex items-center justify-center rounded-full text-primary hover:bg-white/40 transition-all flex-shrink-0">
