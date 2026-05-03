@@ -97,9 +97,17 @@ export default function Home() {
         <div className="animate-float">
           {/* Floating Isometric Island Platform */}
           <div className="iso-container">
+            {/* Shadow Base */}
+            <div className="iso-face iso-shadow"></div>
+            
+            {/* Walls rendered first so they correctly appear below the top face in 2D fallback */}
+            <div className="iso-face iso-left"></div>
+            <div className="iso-face iso-right"></div>
+            
+            {/* Top Face rendered last */}
             <div className="iso-face iso-top">
                {/* The Subject on the Island */}
-              <div className="iso-billboard flex items-center justify-center">
+              <div className="iso-billboard">
               {!hasChatHistory ? (
                 /* Undeveloped Island: The Egg */
                 <div className="iridescent-sphere w-24 h-24 rounded-full flex items-center justify-center animate-breathing shadow-[0_10px_30px_rgba(160,45,112,0.3)]">
@@ -112,10 +120,8 @@ export default function Home() {
                   style={{ backgroundPosition: currentConfig.pos }} 
                 />
               )}
+              </div>
             </div>
-          </div>
-            <div className="iso-face iso-left"></div>
-            <div className="iso-face iso-right"></div>
           </div>
         </div>
 
