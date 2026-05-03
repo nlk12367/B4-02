@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useEmotion } from '../utils/useEmotion';
 import PixelEgg from '../components/PixelEgg';
+import PixelGrass from '../components/PixelGrass';
 
 export default function Home() {
   const { emotion, hasChatHistory, isAnalyzing } = useEmotion();
@@ -116,7 +117,13 @@ export default function Home() {
 
             {/* The Subject on the Island (Rendered as a 3D sibling) */}
             <div className="iso-billboard">
-              <PixelEgg className="w-20 h-20 animate-egg-wobble drop-shadow-[15px_15px_2px_rgba(0,50,0,0.4)]" />
+              <div className="relative flex items-end justify-center w-[120px] h-[100px]">
+                {/* Egg that wobbles */}
+                <PixelEgg className="w-[80px] h-[80px] animate-egg-wobble drop-shadow-[15px_15px_2px_rgba(0,50,0,0.4)] absolute bottom-4" />
+                
+                {/* Foreground Grass that stays still, covering the bottom of the egg */}
+                <PixelGrass className="w-[120px] h-[40px] absolute bottom-0 z-10 drop-shadow-[0_5px_5px_rgba(0,0,0,0.2)]" />
+              </div>
             </div>
           </div>
         </div>
