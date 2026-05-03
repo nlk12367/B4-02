@@ -1,12 +1,33 @@
+import { useState, useEffect } from 'react';
+
 export default function Insights() {
+  const [emotionIndex, setEmotionIndex] = useState(0);
+
+  useEffect(() => {
+    // 每 3 秒自動切換一次吉祥物心情
+    const interval = setInterval(() => {
+      setEmotionIndex((prev) => (prev + 1) % 4);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // 計算 2x2 sprite sheet 的 background-position
+  const positions = [
+    '0% 0%',      // Top-Left: 開心(黃)
+    '100% 0%',    // Top-Right: 生氣(紅)
+    '0% 100%',    // Bottom-Left: 難過(藍)
+    '100% 100%'   // Bottom-Right: 平靜(紫)
+  ];
+  const currentPosition = positions[emotionIndex];
+
   return (
-    <div className="relative min-h-screen pb-24 overflow-x-hidden">
+    <div className="relative min-h-screen pb-24 overflow-x-hidden bg-surface z-10">
       {/* Atmospheric Orbs */}
       <div className="orb w-64 h-64 bg-primary-container top-[-50px] right-[-50px]"></div>
       <div className="orb w-80 h-80 bg-tertiary-container bottom-[20%] left-[-100px]"></div>
       
       {/* TopAppBar */}
-      <header className="sticky top-0 z-40 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl shadow-[0_8px_32px_rgba(160,45,112,0.06)] px-6 py-4 w-full flex justify-between items-center">
+      <header className="sticky top-0 z-40 bg-white/60 dark:bg-slate-900/60 backdrop-blur-xl shadow-[0_8px_32px_rgba(160,45,112,0.06)] px-6 pt-12 pb-4 w-full flex justify-between items-center">
         <div className="flex flex-col">
           <h1 className="font-['Plus_Jakarta_Sans'] font-bold tracking-tight text-2xl text-pink-700 dark:text-pink-400">Insights</h1>
           <p className="text-on-surface-variant text-sm font-medium font-body opacity-80">Understand your emotional patterns</p>
@@ -31,9 +52,16 @@ export default function Insights() {
             </div>
             <div className="relative w-48 h-48 mx-auto mb-6 flex items-center justify-center">
               <div className="absolute inset-0 rounded-full border-4 border-dashed border-primary-container/20 animate-[spin_20s_linear_infinite]"></div>
-              <div className="w-40 h-40 rounded-full overflow-hidden shadow-2xl relative">
-                <img className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uhJl5jk5HxyQLjMaC4TlMnSIlrlnp6TP-wq4n_O9RxYb3taXOBTGVaFNgjhd3DGbMAZHB5KRFhJyiym4er316fj55DpuTyYbuoEROZnLxo901VGuCe49Y6qXpgJBaNl9iulridHYG3WgPJXOIZk7yVCIaBI_qe2hNYvl77gjktXXvpwhk43MyeWbvMfsjB5cfghRo9gPFU9Y2VYNqDYGCmGqnUGYi_fyrzrmGwdxcq3XzpOU7LEw-Jz1Q"/>
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent"></div>
+              <div className="w-40 h-40 rounded-full overflow-hidden shadow-2xl relative animate-float bg-white/80 backdrop-blur-sm">
+                <div 
+                  className="w-full h-full bg-no-repeat transition-all duration-700 ease-in-out" 
+                  style={{ 
+                    backgroundImage: "url('/mascots.png')", 
+                    backgroundSize: '200% 200%',
+                    backgroundPosition: currentPosition
+                  }} 
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent pointer-events-none"></div>
               </div>
             </div>
             <div className="space-y-4">

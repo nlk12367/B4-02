@@ -5,7 +5,7 @@ export default function Home() {
     <main className="absolute inset-0 w-full h-full flex flex-col dreamy-gradient overflow-hidden">
       {/* TopAppBar: Styled from COMPONENTS_17 */}
       <header className="w-full top-0 sticky z-50 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-xl shadow-[0_40px_40px_rgba(160,45,112,0.06)]">
-        <div className="flex items-center justify-between px-6 py-4 w-full">
+        <div className="flex items-center justify-between px-6 pb-4 pt-12 w-full">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-primary/20 to-secondary/20 flex items-center justify-center border border-white/40 shadow-sm overflow-hidden">
               <span className="material-symbols-outlined text-primary-dim opacity-70 text-xl" data-icon="person">person</span>
