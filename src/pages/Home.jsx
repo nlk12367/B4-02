@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useEmotion } from '../utils/useEmotion';
+import PixelEgg from '../components/PixelEgg';
 
 export default function Home() {
   const { emotion, hasChatHistory, isAnalyzing } = useEmotion();
@@ -94,7 +95,7 @@ export default function Home() {
       <div className="relative flex-1 flex flex-col items-center justify-center z-10 -mt-12" style={{ perspective: '1000px' }}>
         
         {/* Floating Wrapper prevents animation from overriding 3D transforms */}
-        <div className="animate-float">
+        <div className="animate-float" style={{ transformStyle: 'preserve-3d' }}>
           {/* Floating Isometric Island Platform */}
           <div className="iso-container">
             {/* Shadow Base */}
@@ -105,14 +106,13 @@ export default function Home() {
             <div className="iso-face iso-right"></div>
             
             {/* Top Face rendered last */}
-            <div className="iso-face iso-top">
-               {/* The Subject on the Island */}
-              <div className="iso-billboard">
+            <div className="iso-face iso-top"></div>
+
+            {/* The Subject on the Island (Rendered as a 3D sibling) */}
+            <div className="iso-billboard">
               {!hasChatHistory ? (
                 /* Undeveloped Island: The Egg */
-                <div className="iridescent-sphere w-24 h-24 rounded-full flex items-center justify-center animate-breathing shadow-[0_10px_30px_rgba(160,45,112,0.3)]">
-                  <span className="material-symbols-outlined text-primary opacity-50">egg</span>
-                </div>
+                <PixelEgg className="w-20 h-20 animate-egg-wobble drop-shadow-2xl" />
               ) : (
                 /* Developed Island: The Mascot */
                 <div 
@@ -120,7 +120,6 @@ export default function Home() {
                   style={{ backgroundPosition: currentConfig.pos }} 
                 />
               )}
-              </div>
             </div>
           </div>
         </div>

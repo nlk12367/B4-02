@@ -216,7 +216,7 @@
 }
 
 .iso-right {
-  background: linear-gradient(to bottom, #95c2a7 0%, #95c2a7 20%, #bc8a5f 20%, #bc8a5f 100%);
+  background: linear-gradient(to right, #95c2a7 0%, #95c2a7 20%, #bc8a5f 20%, #bc8a5f 100%);
   width: 40px;
   height: 100%;
   right: 0;
@@ -299,4 +299,19 @@
   20% { opacity: 0.8; }
   80% { opacity: 0.8; }
   100% { transform: translateY(-200px) scale(1.5) translateX(50px); opacity: 0; }
+}
+
+/* Pixel Egg Animation */
+@keyframes egg-wobble {
+  0%, 75% { transform: rotate(0deg); }
+  80% { transform: rotate(-15deg); }
+  85% { transform: rotate(15deg); }
+  90% { transform: rotate(-10deg); }
+  95% { transform: rotate(10deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.animate-egg-wobble {
+  animation: egg-wobble 5s ease-in-out infinite;
+  transform-origin: bottom center;
 }
