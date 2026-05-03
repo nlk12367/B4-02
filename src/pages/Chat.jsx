@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { generateChatResponse } from '../utils/aiService';
 
 const initialMessages = [
   {
@@ -26,6 +27,7 @@ const initialMessages = [
 export default function Chat() {
   const [messages, setMessages] = useState(initialMessages);
   const [inputText, setInputText] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
   const [isProcessingDoc, setIsProcessingDoc] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
@@ -44,16 +46,43 @@ export default function Chat() {
     scrollToBottom();
   }, [messages]);
 
-  const handleSend = () => {
-    if (!inputText.trim()) return;
+  const handleSend = async (textToSend = inputText) => {
+    if (!textToSend.trim()) return;
     const newMsg = {
       id: Date.now(),
       sender: 'You',
-      text: inputText,
-      time: "Just now"
+      text: textToSend,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
     };
-    setMessages(prev => [...prev, newMsg]);
-    setInputText("");
+    
+    const updatedMessages = [...messages, newMsg];
+    setMessages(updatedMessages);
+    
+    if (textToSend === inputText) {
+      setInputText("");
+    }
+
+    setIsTyping(true);
+    try {
+      const aiResponse = await generateChatResponse(updatedMessages, currentDoc);
+      setMessages(prev => [...prev, {
+        id: Date.now() + 1,
+        sender: 'Aethera',
+        text: aiResponse.text,
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        options: aiResponse.options
+      }]);
+    } catch (err) {
+      console.error(err);
+      setMessages(prev => [...prev, {
+        id: Date.now() + 1,
+        sender: 'System',
+        text: 'Sorry, connection failed.',
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      }]);
+    } finally {
+      setIsTyping(false);
+    }
   };
 
   const handleFileUpload = (e) => {
@@ -182,10 +211,10 @@ export default function Chat() {
             ) : (
               <div className={`${msg.sender === 'You' ? 'glass-panel' : 'glass-bubble-ai'} px-6 py-5 rounded-t-xl shadow-sm border border-white/20 ${msg.sender === 'You' ? 'rounded-bl-xl rounded-br-none' : 'rounded-br-xl rounded-bl-none'}`}>
                 <p className="font-display text-lg leading-relaxed text-on-surface font-light">{msg.text}</p>
-                {msg.options && (
-                  <div className="mt-4 flex gap-2">
+                {msg.options && msg.options.length > 0 && (
+                  <div className="mt-4 flex flex-wrap gap-2">
                     {msg.options.map((opt, i) => (
-                      <button key={i} className="px-4 py-1.5 rounded-full bg-white/20 border border-white/40 text-[12px] font-medium text-primary hover:bg-white/40 transition-all">
+                      <button key={i} onClick={() => handleSend(opt)} className="px-4 py-1.5 rounded-full bg-white/20 border border-white/40 text-[12px] font-medium text-primary hover:bg-white/40 active:scale-95 transition-all text-left">
                         {opt}
                       </button>
                     ))}
@@ -196,6 +225,16 @@ export default function Chat() {
             <span className={`mt-2 text-[10px] text-on-surface-variant font-medium opacity-40 ${msg.sender === 'You' ? 'mr-1' : 'ml-1'}`}>{msg.sender} • {msg.time}</span>
           </div>
         ))}
+        {isTyping && (
+          <div className="flex flex-col mb-10 max-w-[85%] items-start animate-fade-in">
+            <div className="glass-bubble-ai px-6 py-4 rounded-t-xl rounded-br-xl rounded-bl-none shadow-sm border border-white/20 flex items-center gap-1.5">
+              <div className="w-2 h-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '0ms' }}></div>
+              <div className="w-2 h-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '150ms' }}></div>
+              <div className="w-2 h-2 rounded-full bg-primary/60 animate-bounce" style={{ animationDelay: '300ms' }}></div>
+            </div>
+            <span className="mt-2 ml-1 text-[10px] text-on-surface-variant font-medium opacity-40">Aethera is typing...</span>
+          </div>
+        )}
         <div ref={chatEndRef} />
       </main>
 

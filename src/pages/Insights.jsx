@@ -36,8 +36,8 @@ export default function Insights() {
           <button className="w-10 h-10 rounded-full flex items-center justify-center hover:bg-pink-50/50 transition-colors">
             <span className="material-symbols-outlined text-pink-700">settings</span>
           </button>
-          <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-container/30">
-            <img alt="Profile photo" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/ADBb0uj6h0osfC6NsDdFiKGUg80F8T1SdLjqoH37mplFezXBCjWMIaS4Gi_xV5DOTH5Mup5yhB9EzK4ZmdKS2voZFqGBg-1Xgb9uErHN8P5J-3J5UM89WXDIsGk8av8MCHdF89DdJzBF_ZwkPeKjeSFWmM_vXDYhFbJb8tFyghBcQgj9HRJyN-5qkPxmc48ru7O_GvN98GvEJe237aYAEF9cHFL-Lvk2FZko8BsJs9anxWtFY7FhcpvEGRQTsqI"/>
+          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-primary/20 to-secondary/20 flex items-center justify-center border-2 border-primary-container/30 shadow-sm overflow-hidden">
+            <span className="material-symbols-outlined text-primary-dim opacity-70 text-xl" data-icon="person">person</span>
           </div>
         </div>
       </header>
@@ -161,8 +161,8 @@ export default function Insights() {
           <div className="space-y-3">
             {/* Card 1: Spotify */}
             <a className="flex items-center gap-4 p-4 rounded-[1.5rem] bg-white/40 backdrop-blur-md border border-white/60 shadow-sm hover:bg-green-50/30 active:scale-[0.97] active:opacity-90 transition-all cursor-pointer group" href="https://open.spotify.com/">
-              <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-green-100/50">
-                <img alt="Calming abstract art" className="w-full h-full object-cover" src="https://placeholder.pics/svg/300"/>
+              <div className="w-12 h-12 rounded-full overflow-hidden flex-shrink-0 bg-[#1DB954] flex items-center justify-center border-2 border-green-100/50">
+                <img alt="Spotify" className="w-8 h-8 object-contain" src="https://upload.wikimedia.org/wikipedia/commons/1/19/Spotify_logo_without_text.svg"/>
               </div>
               <div className="flex-grow flex flex-col">
                 <h5 className="font-bold text-sm text-on-surface">Spotify</h5>
@@ -177,8 +177,8 @@ export default function Insights() {
             
             {/* Card 2: YouTube */}
             <a className="flex items-center gap-4 p-4 rounded-[1.5rem] bg-white/40 backdrop-blur-md border border-white/60 shadow-sm hover:bg-red-50/30 active:scale-[0.97] active:opacity-90 transition-all cursor-pointer group" href="https://www.youtube.com/">
-              <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 border-2 border-red-100/50">
-                <img alt="Video preview" className="w-full h-full object-cover" src="https://placeholder.pics/svg/300"/>
+              <div className="w-12 h-12 rounded-xl overflow-hidden flex-shrink-0 bg-white flex items-center justify-center border-2 border-red-100/50 shadow-sm">
+                <img alt="YouTube" className="w-8 h-8 object-contain" src="https://upload.wikimedia.org/wikipedia/commons/0/09/YouTube_full-color_icon_%282017%29.svg"/>
               </div>
               <div className="flex-grow flex flex-col">
                 <h5 className="font-bold text-sm text-on-surface">YouTube</h5>
@@ -212,7 +212,7 @@ export default function Insights() {
         <section className="pb-8">
           <div className="glass p-6 rounded-xl border border-primary/10 flex items-center gap-5">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-100 to-purple-100 flex items-center justify-center flex-shrink-0 shadow-inner">
-              <img className="w-10 h-10 object-contain" src="https://lh3.googleusercontent.com/aida/ADBb0ui7VNu30Ys35HlEeUHEGD76E50YCmF6cl2xttAfnq3K_DjUjU44PnvnSfPfAIk0ySkR3vDE-kxN_Ctrpy0dQSfSSzXslQmtohpL7DmU77hLa8tkigZ1Xsf4CjON3B4OxWGPlSi_RatjZpj9H5gCU5HbavWRKMJxD0XBFuCaVTEQFkGJk1uetAIbGgW06-c8O2Q7xQQl09nbA6Izcah5sCBfEafoa5lgTkP48N34E1SbgLYYyw4lU4IUt_K7_xDjuGTXDmlB-C-HQQ"/>
+              <span className="material-symbols-outlined text-primary text-3xl" style={{ fontVariationSettings: "'FILL' 1" }}>emoji_events</span>
             </div>
             <div>
               <p className="text-sm font-semibold text-on-surface leading-snug">
