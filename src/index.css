@@ -1,6 +1,5 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.js";
 
 @layer base {
   body {
@@ -140,4 +139,39 @@
   margin-bottom: 12px;
   border-left: 4px solid #baa3ff;
   font-style: italic;
+}
+
+.dreamy-gradient {
+  background: linear-gradient(135deg, #fce7f3 0%, #e0f2fe 50%, #f3e8ff 100%);
+  background-size: 400% 400%;
+}
+
+.iridescent-sphere {
+  background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.8) 0%, rgba(246, 115, 183, 0.4) 40%, rgba(186, 163, 255, 0.3) 70%, rgba(159, 198, 255, 0.2) 100%);
+  box-shadow: inset -10px -10px 40px rgba(255, 255, 255, 0.5),
+      0 0 60px rgba(216, 180, 254, 0.2);
+  backdrop-filter: blur(8px);
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes breathing {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: inset -10px -10px 40px rgba(255, 255, 255, 0.5), 0 0 60px rgba(216, 180, 254, 0.2); }
+  50% { box-shadow: inset -10px -10px 40px rgba(255, 255, 255, 0.6), 0 0 80px rgba(216, 180, 254, 0.4); }
+}
+.animate-breathing {
+  animation: breathing 3s ease-in-out infinite, pulse-glow 3s ease-in-out infinite;
+}
+.transition-calm {
+  transition: all 0.3s ease-in-out;
 }
