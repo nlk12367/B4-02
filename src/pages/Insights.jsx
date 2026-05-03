@@ -1,22 +1,39 @@
 import { useState, useEffect } from 'react';
+import { analyzeEmotion } from '../utils/aiService';
 
 export default function Insights() {
-  const [emotionIndex, setEmotionIndex] = useState(0);
+  const [emotionIndex, setEmotionIndex] = useState(3); // 預設 3 = 平靜
+  const [isAnalyzing, setIsAnalyzing] = useState(true);
 
   useEffect(() => {
-    // 每 3 秒自動切換一次吉祥物心情
-    const interval = setInterval(() => {
-      setEmotionIndex((prev) => (prev + 1) % 4);
-    }, 3000);
-    return () => clearInterval(interval);
+    async function loadAndAnalyze() {
+      const saved = localStorage.getItem('come_talk_messages');
+      if (saved) {
+        try {
+          const messages = JSON.parse(saved);
+          const emotion = await analyzeEmotion(messages);
+          // 0: Joyful(開心), 1: Anxious(生氣/焦慮), 2: Sad(難過), 3: Calm(平靜)
+          const map = {
+            'Joyful': 0,
+            'Anxious': 1,
+            'Sad': 2,
+            'Calm': 3
+          };
+          setEmotionIndex(map[emotion] !== undefined ? map[emotion] : 3);
+        } catch (err) {
+          console.error(err);
+        }
+      }
+      setIsAnalyzing(false);
+    }
+    loadAndAnalyze();
   }, []);
 
-  // 計算 2x2 sprite sheet 的 background-position
   const positions = [
-    '0% 0%',      // Top-Left: 開心(黃)
-    '100% 0%',    // Top-Right: 生氣(紅)
-    '0% 100%',    // Bottom-Left: 難過(藍)
-    '100% 100%'   // Bottom-Right: 平靜(紫)
+    '0% 0%',      // Top-Left: 開心(Joyful)
+    '100% 0%',    // Top-Right: 生氣/焦慮(Anxious)
+    '0% 100%',    // Bottom-Left: 難過(Sad)
+    '100% 100%'   // Bottom-Right: 平靜(Calm)
   ];
   const currentPosition = positions[emotionIndex];
 
@@ -51,22 +68,31 @@ export default function Insights() {
               <span className="bg-tertiary-container/30 text-on-tertiary-container text-[10px] px-2 py-1 rounded-full font-bold uppercase tracking-wider">Tier IV</span>
             </div>
             <div className="relative w-48 h-48 mx-auto mb-6 flex items-center justify-center">
-              <div className="absolute inset-0 rounded-full border-4 border-dashed border-primary-container/20 animate-[spin_20s_linear_infinite]"></div>
+              <div className={`absolute inset-0 rounded-full border-4 border-dashed border-primary-container/20 ${isAnalyzing ? 'animate-spin' : 'animate-[spin_20s_linear_infinite]'}`}></div>
               <div className="w-40 h-40 rounded-full overflow-hidden shadow-2xl relative animate-float bg-white/80 backdrop-blur-sm">
                 <div 
-                  className="w-full h-full bg-no-repeat transition-all duration-700 ease-in-out" 
+                  className={`w-full h-full bg-no-repeat transition-all duration-700 ease-in-out ${isAnalyzing ? 'opacity-30 blur-sm scale-110' : 'opacity-100'}`} 
                   style={{ 
                     backgroundImage: "url('/mascots.png')", 
                     backgroundSize: '200% 200%',
                     backgroundPosition: currentPosition
                   }} 
                 />
+                {isAnalyzing && (
+                  <div className="absolute inset-0 flex items-center justify-center z-10 text-primary font-bold text-sm animate-pulse tracking-widest">
+                    ANALYZING
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent pointer-events-none"></div>
               </div>
             </div>
             <div className="space-y-4">
-              <p className="text-sm font-body text-on-surface leading-relaxed text-center italic">
-                "Your emotional landscape is blooming with increased resilience and evening tranquility."
+              <p className="text-sm font-body text-on-surface leading-relaxed text-center italic min-h-[40px]">
+                {isAnalyzing ? "AI is reviewing your recent reflections..." : 
+                 emotionIndex === 0 ? "You're radiating warmth and positive energy today!" :
+                 emotionIndex === 1 ? "Your dialogue suggests some tension. Take a deep breath." :
+                 emotionIndex === 2 ? "It's okay to feel down. Healing takes time and patience." :
+                 "Your emotional landscape is calm and grounded. A perfect state for reflection."}
               </p>
               <ul className="space-y-3 pt-2">
                 <li className="flex items-center gap-3 text-sm font-medium">
