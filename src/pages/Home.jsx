@@ -93,11 +93,13 @@ export default function Home() {
       {/* Dynamic Island Area */}
       <div className="relative flex-1 flex flex-col items-center justify-center z-10 -mt-12" style={{ perspective: '1000px' }}>
         
-        {/* Floating Isometric Island Platform */}
-        <div className="iso-container animate-float">
-          <div className="iso-face iso-top">
-             {/* The Subject on the Island */}
-            <div className="iso-billboard flex items-center justify-center">
+        {/* Floating Wrapper prevents animation from overriding 3D transforms */}
+        <div className="animate-float">
+          {/* Floating Isometric Island Platform */}
+          <div className="iso-container">
+            <div className="iso-face iso-top">
+               {/* The Subject on the Island */}
+              <div className="iso-billboard flex items-center justify-center">
               {!hasChatHistory ? (
                 /* Undeveloped Island: The Egg */
                 <div className="iridescent-sphere w-24 h-24 rounded-full flex items-center justify-center animate-breathing shadow-[0_10px_30px_rgba(160,45,112,0.3)]">
@@ -112,8 +114,9 @@ export default function Home() {
               )}
             </div>
           </div>
-          <div className="iso-face iso-left"></div>
-          <div className="iso-face iso-right"></div>
+            <div className="iso-face iso-left"></div>
+            <div className="iso-face iso-right"></div>
+          </div>
         </div>
 
       </div>
