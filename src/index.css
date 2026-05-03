@@ -255,6 +255,15 @@
   justify-content: center;
 }
 
+/* Scattered Minecraft Grass Tufts */
+.iso-tuft {
+  position: absolute;
+  transform-style: preserve-3d;
+  transform-origin: bottom center;
+  /* translateZ moves it to top of the block, then reverse rotation stands it up */
+  transform: translateZ(40.5px) rotateZ(-45deg) rotateX(-60deg);
+}
+
 /* Mascot Sprite on Island */
 .mascot-sprite-island {
   width: 160px;

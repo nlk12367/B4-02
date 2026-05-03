@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEmotion } from '../utils/useEmotion';
 import PixelEgg from '../components/PixelEgg';
 import PixelGrass from '../components/PixelGrass';
+import PixelTuft from '../components/PixelTuft';
 
 export default function Home() {
   const { emotion, hasChatHistory, isAnalyzing } = useEmotion();
@@ -114,6 +115,15 @@ export default function Home() {
             
             {/* Top Face rendered last */}
             <div className="iso-face iso-top"></div>
+
+            {/* Scattered Minecraft Grass Tufts */}
+            <PixelTuft type="short" className="iso-tuft w-6 h-3" style={{ top: '15%', left: '20%' }} />
+            <PixelTuft type="tall" className="iso-tuft w-8 h-6" style={{ top: '40%', left: '70%' }} />
+            <PixelTuft type="short" className="iso-tuft w-5 h-2.5" style={{ top: '70%', left: '20%' }} />
+            <PixelTuft type="tall" className="iso-tuft w-7 h-5" style={{ top: '10%', left: '80%' }} />
+            <PixelTuft type="short" className="iso-tuft w-6 h-3" style={{ top: '80%', left: '80%' }} />
+            <PixelTuft type="tall" className="iso-tuft w-6 h-5" style={{ top: '25%', left: '45%' }} />
+            <PixelTuft type="short" className="iso-tuft w-7 h-3.5" style={{ top: '75%', left: '50%' }} />
 
             {/* The Subject on the Island (Rendered as a 3D sibling) */}
             <div className="iso-billboard">
