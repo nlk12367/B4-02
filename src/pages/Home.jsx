@@ -94,6 +94,12 @@ export default function Home() {
       {/* Dynamic Island Area */}
       <div className="relative flex-1 flex flex-col items-center justify-center z-10 -mt-12" style={{ perspective: '1000px' }}>
         
+        {/* God Rays (Minecraft Shader Effect) */}
+        <div className="absolute inset-0 pointer-events-none z-20 flex justify-center overflow-hidden mix-blend-overlay">
+           <div className="absolute top-[-10%] left-[10%] w-[150%] h-[150%] bg-gradient-to-br from-white/50 via-white/10 to-transparent origin-top-left -rotate-[30deg] blur-2xl animate-pulse"></div>
+           <div className="absolute top-[-20%] left-[30%] w-[60%] h-[150%] bg-gradient-to-br from-yellow-100/40 to-transparent origin-top-left -rotate-[25deg] blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+        </div>
+
         {/* Floating Wrapper prevents animation from overriding 3D transforms */}
         <div className="animate-float" style={{ transformStyle: 'preserve-3d' }}>
           {/* Floating Isometric Island Platform */}
@@ -110,16 +116,7 @@ export default function Home() {
 
             {/* The Subject on the Island (Rendered as a 3D sibling) */}
             <div className="iso-billboard">
-              {!hasChatHistory ? (
-                /* Undeveloped Island: The Egg */
-                <PixelEgg className="w-20 h-20 animate-egg-wobble drop-shadow-2xl" />
-              ) : (
-                /* Developed Island: The Mascot */
-                <div 
-                  className="mascot-sprite-island" 
-                  style={{ backgroundPosition: currentConfig.pos }} 
-                />
-              )}
+              <PixelEgg className="w-20 h-20 animate-egg-wobble drop-shadow-[15px_15px_2px_rgba(0,50,0,0.4)]" />
             </div>
           </div>
         </div>
