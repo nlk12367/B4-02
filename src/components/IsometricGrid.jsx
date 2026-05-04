@@ -20,13 +20,13 @@ export default function IsometricGrid({ level, petState }) {
 
   const grid = grids[level] || grids[1];
   
-  // 圖塊基礎寬高 (需配合您切圖的比例微調)
-  const tileWidth = 140; 
-  const tileHeight = 70; 
+  // 圖塊基礎寬高 (已放大一倍)
+  const tileWidth = 280; 
+  const tileHeight = 140; 
 
   return (
-    <div className="relative w-full h-[300px] flex items-center justify-center pointer-events-none mt-16 z-10">
-      <div className="relative">
+    <div className="relative w-full h-[400px] pointer-events-none mt-16 z-10">
+      <div className="absolute top-1/2 left-1/2" style={{ transform: 'translate(-50%, -50%)' }}>
         {grid.map((row, y) => 
           row.map((tileImage, x) => {
             if (!tileImage) return null;
@@ -51,17 +51,20 @@ export default function IsometricGrid({ level, petState }) {
                 <img 
                   src={`/isometric/${tileImage}`} 
                   alt="tile" 
-                  className="w-[140px] sm:w-[160px] drop-shadow-xl pointer-events-auto hover:-translate-y-2 transition-transform duration-300" 
+                  className="drop-shadow-xl pointer-events-auto hover:-translate-y-2 transition-transform duration-300" 
+                  style={{ width: '280px', height: 'auto' }}
                 />
                 
                 {/* 將蛋或吉祥物放在核心原點圖塊 (0,0) 的上方 */}
                 {x === 0 && y === 0 && (
-                  <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 z-20 pointer-events-auto">
+                  <div className="absolute z-20 pointer-events-auto" style={{ top: '-15%', left: '50%', transform: 'translateX(-50%)' }}>
                     {petState === 'egg' ? (
-                      <PixelEgg className="w-[80px] drop-shadow-xl" />
+                      <div style={{ width: '160px' }}>
+                        <PixelEgg className="w-full drop-shadow-xl" />
+                      </div>
                     ) : (
-                      <div className="relative">
-                        <img src="/isometric/mascot_flag.png" className="w-[100px] drop-shadow-2xl animate-bounce" alt="Mascot" />
+                      <div className="relative flex justify-center">
+                        <img src="/isometric/mascot_flag.png" className="drop-shadow-2xl animate-bounce" style={{ width: '200px' }} alt="Mascot" />
                         {/* 孵化時可以加個特效 */}
                         <div className="absolute inset-0 bg-white/50 rounded-full blur-xl animate-ping -z-10"></div>
                       </div>
