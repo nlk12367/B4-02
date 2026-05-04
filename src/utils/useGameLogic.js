@@ -14,15 +14,11 @@ export function useGameLogic() {
     const newHistory = [...emotionHistory, emotion];
     setEmotionHistory(newHistory);
 
-    // 邏輯 1：島嶼擴張 (每 2 天擴張一次島嶼，最大等級 3)
-    if (newDays % 2 === 0) {
-      setIslandLevel(prev => Math.min(prev + 1, 3));
-    }
+    // 邏輯 1：島嶼擴張 (每天擴張一次島嶼，初始為 Lv.1，第一天變 Lv.2)
+    setIslandLevel(Math.min(newDays + 1, 3));
 
     // 邏輯 2：吉祥物孵化 (第 3 天時，如果還是蛋，就會孵化)
-    // 這裡可以依據 emotionHistory 來決定孵化出哪一隻，目前預設孵化為 mascot_flag
     if (newDays >= 3 && petState === 'egg') {
-      // 假設依據最高頻率的情緒孵化
       setPetState('mascot'); 
     }
   };
