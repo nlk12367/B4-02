@@ -120,7 +120,7 @@ export default function Home() {
 
         {/* Floating Wrapper prevents animation from overriding 3D transforms */}
         <div className="animate-float w-full h-full">
-          <IsometricGrid level={islandLevel} petState={petState} />
+          <IsometricGrid level={islandLevel} petState={petState} emotion={emotion} />
         </div>
 
       </div>

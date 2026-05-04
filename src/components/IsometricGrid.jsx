@@ -1,7 +1,16 @@
 import React from 'react';
 import PixelEgg from './PixelEgg';
 
-export default function IsometricGrid({ level, petState }) {
+export default function IsometricGrid({ level, petState, emotion }) {
+  // 依據情緒改變吉祥物的顏色 (因為目前只有一張圖，我們用 CSS 濾鏡來產生不同角色)
+  const getMascotStyle = (emotion) => {
+    switch(emotion) {
+      case 'Sad': return 'hue-rotate-180 saturate-50 brightness-90'; // 憂鬱色調
+      case 'Anxious': return 'hue-rotate-90 saturate-150'; // 焦慮色調
+      case 'Joyful': return 'saturate-200 brightness-110 drop-shadow-[0_0_15px_rgba(255,200,0,0.8)]'; // 喜悅發光
+      default: return '';
+    }
+  };
   // 定義不同等級的島嶼網格配置
   const grids = {
     1: [
@@ -47,12 +56,13 @@ export default function IsometricGrid({ level, petState }) {
                   transform: 'translate(-50%, -50%)' // 將繪圖中心對齊座標點
                 }}
               >
-                {/* 島嶼圖塊 */}
+                {/* 島嶼圖塊 (加入 ?v=1 強制清除瀏覽器快取) */}
                 <img 
-                  src={`/isometric/${tileImage}`} 
+                  src={`/isometric/${tileImage}?v=2`} 
                   alt="tile" 
                   className="drop-shadow-xl pointer-events-auto hover:-translate-y-2 transition-transform duration-300" 
                   style={{ width: '280px', height: 'auto' }}
+                  onError={(e) => { e.target.style.border = '5px solid red'; console.error('Image load failed:', tileImage); }}
                 />
                 
                 {/* 將蛋或吉祥物放在核心原點圖塊 (0,0) 的上方 */}
@@ -63,10 +73,16 @@ export default function IsometricGrid({ level, petState }) {
                         <PixelEgg className="w-full drop-shadow-xl" />
                       </div>
                     ) : (
-                      <div className="relative flex justify-center">
-                        <img src="/isometric/mascot_flag.png" className="drop-shadow-2xl animate-bounce" style={{ width: '200px' }} alt="Mascot" />
-                        {/* 孵化時可以加個特效 */}
-                        <div className="absolute inset-0 bg-white/50 rounded-full blur-xl animate-ping -z-10"></div>
+                      <div className="relative flex justify-center items-center">
+                        <img 
+                          src={`/isometric/mascot_flag.png?v=2`} 
+                          className={`drop-shadow-2xl animate-bounce transition-all duration-1000 ${getMascotStyle(emotion)}`} 
+                          style={{ width: '200px' }} 
+                          alt="Mascot" 
+                          onError={(e) => { e.target.style.border = '5px solid red'; }}
+                        />
+                        {/* 孵化時的發光特效 */}
+                        <div className="absolute inset-0 bg-white/50 rounded-full blur-2xl animate-pulse -z-10"></div>
                       </div>
                     )}
                   </div>
