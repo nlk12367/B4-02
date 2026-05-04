@@ -14,11 +14,11 @@ export default function IsometricGrid({ level, petState, emotion }) {
   // 定義不同等級的島嶼網格配置
   const grids = {
     1: [
-      ['tile_grass.png']
+      ['tile_center.png'] // 使用 tile_center 確保載入
     ],
     2: [
-      ['tile_grass.png', 'tile_center.png'],
-      ['tile_center.png', 'tile_rock.png']
+      ['tile_center.png', 'edge_straight.png'],
+      ['edge_straight.png', 'tile_rock.png']
     ],
     3: [
       ['corner_outer.png', 'edge_straight.png', 'edge_straight.png'],
@@ -53,21 +53,23 @@ export default function IsometricGrid({ level, petState, emotion }) {
                   left: `${px}px`,
                   top: `${py}px`,
                   zIndex: zIndex,
-                  transform: 'translate(-50%, -50%)' // 將繪圖中心對齊座標點
+                  // 改變對齊點：對齊圖片的「頂部中心」，這樣不管底座岩石有多深，頂部的等距網格都能完美接合！
+                  transform: 'translate(-50%, 0%)' 
                 }}
               >
-                {/* 島嶼圖塊 (加入 ?v=1 強制清除瀏覽器快取) */}
+                {/* 島嶼圖塊 (加入 ?v=3 強制清除瀏覽器快取) */}
                 <img 
-                  src={`/isometric/${tileImage}?v=2`} 
+                  src={`/isometric/${tileImage}?v=3`} 
                   alt="tile" 
                   className="drop-shadow-xl pointer-events-auto hover:-translate-y-2 transition-transform duration-300" 
                   style={{ width: '280px', height: 'auto' }}
                   onError={(e) => { e.target.style.border = '5px solid red'; console.error('Image load failed:', tileImage); }}
                 />
                 
-                {/* 將蛋或吉祥物放在核心原點圖塊 (0,0) 的上方 */}
+                {/* 將蛋或吉祥物精準放在核心圖塊 (0,0) 的菱形表面正中心 */}
+                {/* 280寬的菱形高度為140，中心點位於 top: 70px。因此將蛋的底部對齊 70px。 */}
                 {x === 0 && y === 0 && (
-                  <div className="absolute z-20 pointer-events-auto" style={{ top: '-15%', left: '50%', transform: 'translateX(-50%)' }}>
+                  <div className="absolute z-20 pointer-events-auto" style={{ top: '70px', left: '50%', transform: 'translate(-50%, -100%)' }}>
                     {petState === 'egg' ? (
                       <div style={{ width: '160px' }}>
                         <PixelEgg className="w-full drop-shadow-xl" />
