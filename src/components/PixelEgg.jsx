@@ -1,45 +1,35 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 export default function PixelEgg({ className = "" }) {
-  const EGG_PIXELS = [
-    ".....BBBBBB.....",
-    "...BBWWWWWWBB...",
-    "..BWWWWWWWWWWB..",
-    ".BWWWWGWWWWWWWB.",
-    ".BWWWGGGWWWWWWB.",
-    "BWWWWGGGWWWWWWWB",
-    "BWWWWWWWWWWWWGGB",
-    "BGGWWWWWWWWWGGGB",
-    "BGGWWWWWWWWWGGGB",
-    "BWWWWWWWWWWWWGGB",
-    "BWWWWGGWWWWWWWWB",
-    "BWWWGGGGWWWWWbbB",
-    ".BWWGGGGWWWWbbB.",
-    ".BWWWGGWWWWbbB..",
-    "..BBWWWWWWbbBB..",
-    "....BBBBBBBB...."
-  ];
+  const [isWobbling, setIsWobbling] = useState(false);
 
-  const colorMap = {
-    'B': '#1f2937', // outline (Gray-800)
-    'W': '#ffffff', // body (White)
-    'G': '#14b8a6', // spots (Teal-500)
-    'b': '#e5e7eb', // shadow (Gray-200)
-    '.': 'transparent'
-  };
+  useEffect(() => {
+    let timeout;
+    
+    const triggerWobble = () => {
+      setIsWobbling(true);
+      // 晃動動畫持續 1 秒後重置狀態
+      setTimeout(() => {
+        setIsWobbling(false);
+        // 隨機等待 2 到 7 秒後進行下一次晃動
+        const nextWobbleDelay = 2000 + Math.random() * 5000;
+        timeout = setTimeout(triggerWobble, nextWobbleDelay);
+      }, 1000);
+    };
+
+    // 初始隨機延遲 1 到 4 秒後開始第一次晃動
+    const initialDelay = 1000 + Math.random() * 3000;
+    timeout = setTimeout(triggerWobble, initialDelay);
+
+    return () => clearTimeout(timeout);
+  }, []);
 
   return (
-    <div 
-      className={`pixel-egg ${className}`} 
-      style={{ 
-        display: 'grid', 
-        gridTemplateColumns: 'repeat(16, 1fr)',
-        aspectRatio: '1/1'
-      }}
-    >
-      {EGG_PIXELS.join('').split('').map((char, index) => (
-        <div key={index} style={{ backgroundColor: colorMap[char] }}></div>
-      ))}
-    </div>
+    <img 
+      src="/isometric/egg.png" 
+      alt="Mysterious Egg"
+      className={`pixel-egg ${className} ${isWobbling ? 'wobble-active' : ''}`} 
+      style={{ transformOrigin: 'bottom center' }}
+    />
   );
 }

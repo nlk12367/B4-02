@@ -1,0 +1,55 @@
+{
+  "isometric_settings": {
+    "tile_width": 256,
+    "tile_height": 128,
+    "grid_ratio": "2:1",
+    "anchor": "bottom_center"
+  },
+  "tile_types": {
+    "0": { "name": "empty", "walkable": false },
+    "1": { "name": "core_grass", "walkable": true, "sprite": "tile_grass.png" },
+    "2": { "name": "edge_straight_left", "walkable": true, "sprite": "edge_left.png" },
+    "3": { "name": "edge_straight_right", "walkable": true, "sprite": "edge_right.png" },
+    "4": { "name": "corner_outer_bottom", "walkable": true, "sprite": "corner_bottom.png" },
+    "5": { "name": "corner_outer_top", "walkable": true, "sprite": "corner_top.png" },
+    "6": { "name": "corner_outer_left", "walkable": true, "sprite": "corner_left.png" },
+    "7": { "name": "corner_outer_right", "walkable": true, "sprite": "corner_right.png" }
+  },
+  "props": {
+    "egg_neutral": { "size": [1, 1], "y_offset": 10, "animation": "wobble_random" },
+    "mascot_hatched": { "size": [1, 1], "y_offset": 0, "animation": "idle_breathe" },
+    "red_flag": { "size": [1, 1], "y_offset": 0, "animation": "wind_flutter" },
+    "chest": { "size": [1, 1], "y_offset": 0, "animation": "none" }
+  },
+  "emotion_visual_mapping": {
+    "Normal": {
+      "css_filter": "none",
+      "weather": "sunbeams",
+      "particle_fx": "sparkle_white",
+      "particle_density": 10,
+      "island_accessories": []
+    },
+    "Depressed": {
+      "css_filter": "saturate(0.6) hue-rotate(10deg) brightness(0.85)",
+      "weather": "rain_fog",
+      "particle_fx": "droplets",
+      "particle_density": 20,
+      "island_accessories": ["fog_clouds"]
+    },
+    "Positive": {
+      "css_filter": "saturate(1.25) brightness(1.1) contrast(1.05)",
+      "weather": "glow_rays",
+      "particle_fx": "sparkle_gold",
+      "particle_density": 15,
+      "island_accessories": ["tiny_flowers", "halo_glow"]
+    }
+  },
+  "layout_generator": {
+    "description": "2D Array mapping for a 3x3 island (1=Core, others=Edges/Corners)",
+    "sample_3x3": [
+      [5, 3, 7],
+      [2, 1, 3],
+      [6, 2, 4]
+    ]
+  }
+}

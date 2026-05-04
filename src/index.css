@@ -330,16 +330,16 @@
 }
 
 /* Pixel Egg Animation */
-@keyframes egg-wobble {
-  0%, 75% { transform: rotate(0deg); }
-  80% { transform: rotate(-15deg); }
-  85% { transform: rotate(15deg); }
-  90% { transform: rotate(-10deg); }
-  95% { transform: rotate(10deg); }
+@keyframes egg-wobble-once {
+  0% { transform: rotate(0deg); }
+  20% { transform: rotate(-15deg); }
+  40% { transform: rotate(15deg); }
+  60% { transform: rotate(-10deg); }
+  80% { transform: rotate(10deg); }
   100% { transform: rotate(0deg); }
 }
 
-.animate-egg-wobble {
-  animation: egg-wobble 5s ease-in-out infinite;
+.wobble-active {
+  animation: egg-wobble-once 1s ease-in-out;
   transform-origin: bottom center;
 }
