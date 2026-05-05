@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { useEmotion } from '../utils/useEmotion';
 import { useGameLogic } from '../utils/useGameLogic';
 import IsometricGrid from '../components/IsometricGrid';
+import { useRef, useState, useCallback } from 'react';
 
 export default function Home() {
   const { emotion, hasChatHistory, isAnalyzing } = useEmotion();
@@ -37,6 +38,33 @@ export default function Home() {
   };
 
   const currentConfig = emotionConfig[emotion] || emotionConfig['Calm'];
+
+  // ─── 可拖移島嶼視口 ───────────────────────────────────────────────
+  const panOffset = useRef({ x: 0, y: 0 });
+  const dragStart = useRef(null);
+  const [transform, setTransform] = useState({ x: 0, y: 0 });
+  const isDragging = useRef(false);
+
+  const CLAMP = 160; // 最大可拖移距離 (px)
+
+  const onPointerDown = useCallback((e) => {
+    // 只允許主鍵 (滑鼠左鍵) 或觸控
+    dragStart.current = { x: e.clientX - panOffset.current.x, y: e.clientY - panOffset.current.y };
+    isDragging.current = true;
+    e.currentTarget.setPointerCapture(e.pointerId);
+  }, []);
+
+  const onPointerMove = useCallback((e) => {
+    if (!isDragging.current || !dragStart.current) return;
+    const nx = Math.max(-CLAMP, Math.min(CLAMP, e.clientX - dragStart.current.x));
+    const ny = Math.max(-CLAMP, Math.min(CLAMP, e.clientY - dragStart.current.y));
+    panOffset.current = { x: nx, y: ny };
+    setTransform({ x: nx, y: ny });
+  }, []);
+
+  const onPointerUp = useCallback(() => {
+    isDragging.current = false;
+  }, []);
 
   return (
     <main className={`absolute inset-0 w-full h-full flex flex-col overflow-hidden transition-colors duration-1000 ${currentConfig.bg}`}>
@@ -109,20 +137,43 @@ export default function Home() {
         </div>
       </header>
 
-      {/* Dynamic Island Area */}
-      <div className="relative flex-1 flex flex-col items-center justify-center z-10" style={{ perspective: '1000px' }}>
-        
-        {/* God Rays (Minecraft Shader Effect) */}
+      {/* Dynamic Island Area — 可拖移視口 */}
+      <div
+        className="relative flex-1 z-10 overflow-hidden"
+        onPointerDown={onPointerDown}
+        onPointerMove={onPointerMove}
+        onPointerUp={onPointerUp}
+        onPointerLeave={onPointerUp}
+        style={{ cursor: isDragging.current ? 'grabbing' : 'grab', touchAction: 'none' }}
+      >
+        {/* God Rays */}
         <div className="absolute inset-0 pointer-events-none z-20 flex justify-center overflow-hidden mix-blend-overlay">
-           <div className="absolute top-[-10%] left-[10%] w-[150%] h-[150%] bg-gradient-to-br from-white/50 via-white/10 to-transparent origin-top-left -rotate-[30deg] blur-2xl animate-pulse"></div>
-           <div className="absolute top-[-20%] left-[30%] w-[60%] h-[150%] bg-gradient-to-br from-yellow-100/40 to-transparent origin-top-left -rotate-[25deg] blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
+          <div className="absolute top-[-10%] left-[10%] w-[150%] h-[150%] bg-gradient-to-br from-white/50 via-white/10 to-transparent origin-top-left -rotate-[30deg] blur-2xl animate-pulse"></div>
+          <div className="absolute top-[-20%] left-[30%] w-[60%] h-[150%] bg-gradient-to-br from-yellow-100/40 to-transparent origin-top-left -rotate-[25deg] blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
         </div>
 
-        {/* Floating Wrapper prevents animation from overriding 3D transforms */}
-        <div className="animate-float w-full h-full">
-          <IsometricGrid level={islandLevel} petState={petState} emotion={emotion} />
+        {/* 可拖移的内容層 — 比視口大，讓使用者可以滑動探索 */}
+        <div
+          className="animate-float absolute"
+          style={{
+            // 讓內容層超出視口範圍
+            inset: `-${CLAMP}px`,
+            // 套用拖移偏移
+            transform: `translate(${transform.x}px, ${transform.y}px)`,
+            transition: isDragging.current ? 'none' : 'transform 0.4s cubic-bezier(0.22,1,0.36,1)',
+          }}
+        >
+          {/* IsometricGrid 本身居中於擴大的內容層 */}
+          <div className="w-full h-full flex items-center justify-center">
+            <IsometricGrid level={islandLevel} petState={petState} emotion={emotion} />
+          </div>
         </div>
 
+        {/* 提示手勢 — 首次載入時短暫顯示 */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex items-center gap-1.5 bg-black/20 backdrop-blur-sm text-white/70 text-xs px-3 py-1.5 rounded-full animate-[fadeout_3s_ease-in_forwards]">
+          <span className="material-symbols-outlined text-sm">swipe</span>
+          <span>滑動探索島嶼</span>
+        </div>
       </div>
 
       {/* 開發測試用面板 (Debug Panel) */}
