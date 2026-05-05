@@ -110,15 +110,35 @@ export default function IsometricGrid({ level, petState, emotion }) {
                     <div style={{ width: `${BASE_SIZE * 0.45}px` }}>
                       <PixelEgg className="w-full drop-shadow-xl" />
                     </div>
-                    {/* 接觸陰影 */}
-                    <div style={{
-                      width: `${BASE_SIZE * 0.32}px`,
-                      height: `${BASE_SIZE * 0.07}px`,
-                      background: 'radial-gradient(ellipse, rgba(60,80,40,0.35), transparent 70%)',
-                      borderRadius: '50%',
-                      marginTop: `-${BASE_SIZE * 0.06}px`,
-                      filter: 'blur(4px)',
-                    }} />
+                    {/* 
+                      雙層環境光遮蔽 (AO) 暈影：
+                      1. 內層 (核心)：深綠色、不透明度高 → 模擬物件緊貼地面的接觸區
+                      2. 外層 (擴散)：更大、更淡 → 模擬光線散射到周圍草地的自然漸層
+                    */}
+                    <div style={{ position: 'relative', height: 0, width: `${BASE_SIZE * 0.45}px` }}>
+                      {/* 外層擴散暈 */}
+                      <div style={{
+                        position: 'absolute',
+                        left: '50%', top: 0,
+                        transform: 'translate(-50%, -50%)',
+                        width: `${BASE_SIZE * 0.42}px`,
+                        height: `${BASE_SIZE * 0.10}px`,
+                        background: 'radial-gradient(ellipse, rgba(30,70,15,0.28) 0%, transparent 72%)',
+                        borderRadius: '50%',
+                        filter: 'blur(6px)',
+                      }} />
+                      {/* 內層核心暗區 */}
+                      <div style={{
+                        position: 'absolute',
+                        left: '50%', top: 0,
+                        transform: 'translate(-50%, -50%)',
+                        width: `${BASE_SIZE * 0.26}px`,
+                        height: `${BASE_SIZE * 0.055}px`,
+                        background: 'radial-gradient(ellipse, rgba(15,50,8,0.55) 0%, transparent 68%)',
+                        borderRadius: '50%',
+                        filter: 'blur(3px)',
+                      }} />
+                    </div>
                   </div>
                 ) : (
                   <div className="relative flex justify-center items-end">
