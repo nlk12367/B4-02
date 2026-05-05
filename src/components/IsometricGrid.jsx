@@ -21,36 +21,41 @@ export default function IsometricGrid({ level, petState, emotion }) {
   };
 
   // 每個等級的島嶼圖層配置
-  // x, y 是相對於容器中心的百分比偏移 (0,0 = 中心)
-  // scale 控制大小, z 控制疊放順序
+  // x, y = 相對於容器中心的百分比偏移
+  // scale = 縮放比例 (越小越遠)
+  // z = 疊放順序 (前方島嶼 z 越大)
   const levelConfigs = {
     1: {
       tiles: [
-        { img: 'tile_grass.png', x: 0, y: 0, scale: 1, z: 1 }
+        // 主島 — 居中
+        { img: 'tile_grass.png', x: 0, y: 0, scale: 1.0, z: 3 }
       ],
-      // 蛋/吉祥物相對於容器中心的位置 (百分比)
       entityX: 0,
-      entityY: -12,  // 往上偏移，讓它坐在草地表面
+      entityY: -13,
     },
     2: {
       tiles: [
-        { img: 'tile_center.png', x: -22, y: 12, scale: 0.85, z: 1 },
-        { img: 'tile_grass.png', x: 0, y: 0, scale: 1, z: 2 },
-        { img: 'tile_rock.png', x: 18, y: 10, scale: 0.7, z: 0 },
+        // 後左島 — 往左上退後，縮小模擬景深
+        { img: 'tile_center.png', x: -40, y: -25, scale: 0.72, z: 1 },
+        // 主島 — 前景居中
+        { img: 'tile_grass.png', x: 0, y: 0, scale: 1.0, z: 3 },
       ],
       entityX: 0,
-      entityY: -12,
+      entityY: -13,
     },
     3: {
       tiles: [
-        { img: 'corner_outer.png', x: -28, y: -5, scale: 0.75, z: 1 },
-        { img: 'edge_straight.png', x: 22, y: -5, scale: 0.75, z: 1 },
-        { img: 'tile_center.png', x: -22, y: 18, scale: 0.8, z: 2 },
-        { img: 'tile_grass.png', x: 0, y: 0, scale: 1, z: 3 },
-        { img: 'tile_rock.png', x: 24, y: 16, scale: 0.65, z: 2 },
+        // 後右島 — 往右上退後
+        { img: 'corner_outer.png', x: 42, y: -26, scale: 0.68, z: 1 },
+        // 後左島 — 往左上退後
+        { img: 'tile_center.png', x: -42, y: -26, scale: 0.68, z: 1 },
+        // 前右小島 — 右前方，略小
+        { img: 'tile_rock.png', x: 32, y: 20, scale: 0.58, z: 2 },
+        // 主島 — 最前景居中，z最高
+        { img: 'tile_grass.png', x: 0, y: 0, scale: 1.0, z: 3 },
       ],
       entityX: 0,
-      entityY: -12,
+      entityY: -13,
     }
   };
 
@@ -95,8 +100,23 @@ export default function IsometricGrid({ level, petState, emotion }) {
           }}
         >
           {petState === 'egg' ? (
-            <div style={{ width: `${BASE_SIZE * 0.45}px` }}>
-              <PixelEgg className="w-full drop-shadow-xl" />
+            <div className="relative flex flex-col items-center">
+              {/* 蛋本體 */}
+              <div style={{ width: `${BASE_SIZE * 0.45}px` }}>
+                <PixelEgg className="w-full drop-shadow-xl" />
+              </div>
+              {/* 接觸陰影 (Contact Shadow) — 讓蛋自然融入草地 */}
+              <div
+                style={{
+                  width: `${BASE_SIZE * 0.32}px`,
+                  height: `${BASE_SIZE * 0.07}px`,
+                  background: 'radial-gradient(ellipse, rgba(60,80,40,0.35), transparent 70%)',
+                  borderRadius: '50%',
+                  marginTop: `-${BASE_SIZE * 0.06}px`,
+                  filter: 'blur(4px)',
+                  pointerEvents: 'none',
+                }}
+              />
             </div>
           ) : (
             <div className="relative flex justify-center items-center">

@@ -110,7 +110,7 @@ export default function Home() {
       </header>
 
       {/* Dynamic Island Area */}
-      <div className="relative flex-1 flex flex-col items-center justify-center z-10 -mt-12" style={{ perspective: '1000px' }}>
+      <div className="relative flex-1 flex flex-col items-center justify-center z-10" style={{ perspective: '1000px' }}>
         
         {/* God Rays (Minecraft Shader Effect) */}
         <div className="absolute inset-0 pointer-events-none z-20 flex justify-center overflow-hidden mix-blend-overlay">
