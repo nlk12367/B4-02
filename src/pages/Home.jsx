@@ -40,30 +40,34 @@ export default function Home() {
   const currentConfig = emotionConfig[emotion] || emotionConfig['Calm'];
 
   // ─── 可拖移島嶼視口 ───────────────────────────────────────────────
-  const panOffset = useRef({ x: 0, y: 0 });
+  const panRef = useRef({ x: 0, y: 0 });
   const dragStart = useRef(null);
-  const [transform, setTransform] = useState({ x: 0, y: 0 });
-  const isDragging = useRef(false);
+  const [pan, setPan] = useState({ x: 0, y: 0 });
+  const [dragging, setDragging] = useState(false);
 
-  const CLAMP = 160; // 最大可拖移距離 (px)
+  const CLAMP = 180;
 
   const onPointerDown = useCallback((e) => {
-    // 只允許主鍵 (滑鼠左鍵) 或觸控
-    dragStart.current = { x: e.clientX - panOffset.current.x, y: e.clientY - panOffset.current.y };
-    isDragging.current = true;
+    e.preventDefault();
+    dragStart.current = {
+      x: e.clientX - panRef.current.x,
+      y: e.clientY - panRef.current.y,
+    };
+    setDragging(true);
     e.currentTarget.setPointerCapture(e.pointerId);
   }, []);
 
   const onPointerMove = useCallback((e) => {
-    if (!isDragging.current || !dragStart.current) return;
+    if (!dragStart.current) return;
     const nx = Math.max(-CLAMP, Math.min(CLAMP, e.clientX - dragStart.current.x));
     const ny = Math.max(-CLAMP, Math.min(CLAMP, e.clientY - dragStart.current.y));
-    panOffset.current = { x: nx, y: ny };
-    setTransform({ x: nx, y: ny });
+    panRef.current = { x: nx, y: ny };
+    setPan({ x: nx, y: ny });
   }, []);
 
   const onPointerUp = useCallback(() => {
-    isDragging.current = false;
+    dragStart.current = null;
+    setDragging(false);
   }, []);
 
   return (
@@ -139,12 +143,13 @@ export default function Home() {
 
       {/* Dynamic Island Area — 可拖移視口 */}
       <div
-        className="relative flex-1 z-10 overflow-hidden"
+        className="relative flex-1 z-10 overflow-hidden select-none"
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={onPointerUp}
         onPointerLeave={onPointerUp}
-        style={{ cursor: isDragging.current ? 'grabbing' : 'grab', touchAction: 'none' }}
+        onPointerCancel={onPointerUp}
+        style={{ cursor: dragging ? 'grabbing' : 'grab', touchAction: 'none', userSelect: 'none' }}
       >
         {/* God Rays */}
         <div className="absolute inset-0 pointer-events-none z-20 flex justify-center overflow-hidden mix-blend-overlay">
@@ -152,24 +157,21 @@ export default function Home() {
           <div className="absolute top-[-20%] left-[30%] w-[60%] h-[150%] bg-gradient-to-br from-yellow-100/40 to-transparent origin-top-left -rotate-[25deg] blur-3xl animate-pulse" style={{ animationDuration: '4s' }}></div>
         </div>
 
-        {/* 可拖移的内容層 — 比視口大，讓使用者可以滑動探索 */}
+        {/* 外層：負責平移 (pan)，不帶 float 動畫，避免 transform 衝突 */}
         <div
-          className="animate-float absolute"
+          className="absolute inset-0"
           style={{
-            // 讓內容層超出視口範圍
-            inset: `-${CLAMP}px`,
-            // 套用拖移偏移
-            transform: `translate(${transform.x}px, ${transform.y}px)`,
-            transition: isDragging.current ? 'none' : 'transform 0.4s cubic-bezier(0.22,1,0.36,1)',
+            transform: `translate(${pan.x}px, ${pan.y}px)`,
+            transition: dragging ? 'none' : 'transform 0.5s cubic-bezier(0.22,1,0.36,1)',
           }}
         >
-          {/* IsometricGrid 本身居中於擴大的內容層 */}
-          <div className="w-full h-full flex items-center justify-center">
+          {/* 內層：只負責 float 動畫，保持置中 */}
+          <div className="animate-float w-full h-full flex items-center justify-center">
             <IsometricGrid level={islandLevel} petState={petState} emotion={emotion} />
           </div>
         </div>
 
-        {/* 提示手勢 — 首次載入時短暫顯示 */}
+        {/* 提示手勢 */}
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none flex items-center gap-1.5 bg-black/20 backdrop-blur-sm text-white/70 text-xs px-3 py-1.5 rounded-full animate-[fadeout_3s_ease-in_forwards]">
           <span className="material-symbols-outlined text-sm">swipe</span>
           <span>滑動探索島嶼</span>
