@@ -167,7 +167,7 @@ export default function Home() {
         >
           {/* 內層：只負責 float 動畫，保持置中 */}
           <div className="animate-float w-full h-full flex items-center justify-center">
-            <IsometricGrid level={islandLevel} petState={petState} emotion={emotion} />
+            <IsometricGrid islands={islands} emotion={emotion} />
           </div>
         </div>
 
@@ -181,8 +181,11 @@ export default function Home() {
       {/* 開發測試用面板 (Debug Panel) */}
       <div className="absolute top-24 right-4 bg-black/60 backdrop-blur-md p-3 rounded-xl border border-white/20 z-50 flex flex-col gap-2">
         <div className="text-white text-xs font-mono mb-1">
-          <div>對話天數: {daysPassed} | 島嶼 Lv: {islandLevel}</div>
-          <div>吉祥物: {petState === 'egg' ? '孵化中 (蛋)' : '已誕生'}</div>
+          <div>對話天數: {daysPassed} | 島嶼數: {islands.length}</div>
+          <div>主島: {petState === 'egg' ? `孵化中 (蛋)` : '已誕生'}</div>
+          <div className="opacity-60 mt-0.5">
+            {islands.filter(i => i.petState === 'mascot').length} / {islands.length} 已孵化
+          </div>
         </div>
         <button onClick={() => simulateChat(emotion)} className="bg-primary hover:bg-primary-dim text-white text-xs py-1.5 px-3 rounded-lg active:scale-95 transition-transform shadow-md">
           + 模擬對話 (經過一天)
