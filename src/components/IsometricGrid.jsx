@@ -107,8 +107,13 @@ export default function IsometricGrid({ level, petState, emotion }) {
               >
                 {petState === 'egg' ? (
                   <div className="relative flex flex-col items-center">
-                    <div style={{ width: `${BASE_SIZE * 0.45}px` }}>
-                      <PixelEgg className="w-full drop-shadow-xl" />
+                    {/* 用 overflow:hidden 裁掉 egg.png 底部自帶的粉紫色陰影 (約佔圖高下方 28%) */}
+                    <div style={{
+                      width: `${BASE_SIZE * 0.45}px`,
+                      height: `${BASE_SIZE * 0.45 * 0.72}px`,
+                      overflow: 'hidden',
+                    }}>
+                      <PixelEgg className="w-full" />
                     </div>
                     {/* 
                       雙層環境光遮蔽 (AO) 暈影：
