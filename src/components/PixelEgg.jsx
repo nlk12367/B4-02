@@ -26,7 +26,7 @@ export default function PixelEgg({ className = "" }) {
 
   return (
     <img 
-      src="/isometric/egg.png" 
+      src="/isometric/egg.png?v=4" 
       alt="Mysterious Egg"
       className={`pixel-egg ${className} ${isWobbling ? 'wobble-active' : ''}`} 
       style={{ transformOrigin: 'bottom center' }}

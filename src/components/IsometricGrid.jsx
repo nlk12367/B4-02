@@ -14,11 +14,11 @@ export default function IsometricGrid({ level, petState, emotion }) {
   // 定義不同等級的島嶼網格配置
   const grids = {
     1: [
-      ['tile_center.png'] // 使用 tile_center 確保載入
+      ['tile_grass.png']
     ],
     2: [
-      ['tile_center.png', 'edge_straight.png'],
-      ['edge_straight.png', 'tile_rock.png']
+      ['tile_grass.png', 'tile_center.png'],
+      ['tile_center.png', 'tile_rock.png']
     ],
     3: [
       ['corner_outer.png', 'edge_straight.png', 'edge_straight.png'],
@@ -57,9 +57,9 @@ export default function IsometricGrid({ level, petState, emotion }) {
                   transform: 'translate(-50%, 0%)' 
                 }}
               >
-                {/* 島嶼圖塊 (加入 ?v=3 強制清除瀏覽器快取) */}
+                {/* 島嶼圖塊 (加入 ?v=4 強制清除瀏覽器快取) */}
                 <img 
-                  src={`/isometric/${tileImage}?v=3`} 
+                  src={`/isometric/${tileImage}?v=4`} 
                   alt="tile" 
                   className="drop-shadow-xl pointer-events-auto hover:-translate-y-2 transition-transform duration-300" 
                   style={{ width: '280px', height: 'auto' }}
@@ -77,7 +77,7 @@ export default function IsometricGrid({ level, petState, emotion }) {
                     ) : (
                       <div className="relative flex justify-center items-center">
                         <img 
-                          src={`/isometric/mascot_flag.png?v=2`} 
+                          src={`/isometric/mascot_flag.png?v=4`} 
                           className={`drop-shadow-2xl animate-bounce transition-all duration-1000 ${getMascotStyle(emotion)}`} 
                           style={{ width: '200px' }} 
                           alt="Mascot" 
