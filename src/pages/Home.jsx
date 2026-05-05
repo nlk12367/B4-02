@@ -6,7 +6,7 @@ import { useRef, useState, useCallback } from 'react';
 
 export default function Home() {
   const { emotion, hasChatHistory, isAnalyzing } = useEmotion();
-  const { daysPassed, islandLevel, petState, simulateChat, resetGame } = useGameLogic();
+  const { daysPassed, islands, islandLevel, petState, simulateChat, resetGame } = useGameLogic();
 
   // Emotion mapped properties (Normal, Depressed, Positive)
   const emotionConfig = {
