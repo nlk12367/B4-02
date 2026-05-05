@@ -176,22 +176,35 @@ export default function IsometricGrid({ level, petState, emotion }) {
                   zIndex: 10,
                 }}
               >
-                <div className="relative flex flex-col items-center animate-[bounce_3s_ease-in-out_infinite]" style={{ animationDelay: `${i * 0.4}s` }}>
-                  <img
-                    src="/isometric/egg.png?v=5"
-                    alt="Secondary Egg"
-                    style={{ width: `${secondaryEggSize(tile.scale)}px`, height: 'auto' }}
-                    className="drop-shadow-lg"
-                  />
-                  {/* 接觸陰影 */}
+                {/* 次要蛋：孵化後有機率出現，跟著島嶼一起浮動，套用和主蛋相同的隨機擺動 */}
+                <div className="relative flex flex-col items-center">
+                  {/* 裁掉 egg.png 自帶的粉紫色底部陰影 */}
                   <div style={{
-                    width: `${secondaryEggSize(tile.scale) * 0.7}px`,
-                    height: `${secondaryEggSize(tile.scale) * 0.15}px`,
-                    background: 'radial-gradient(ellipse, rgba(60,80,40,0.3), transparent 70%)',
-                    borderRadius: '50%',
-                    marginTop: `-${secondaryEggSize(tile.scale) * 0.12}px`,
-                    filter: 'blur(3px)',
-                  }} />
+                    width: `${secondaryEggSize(tile.scale)}px`,
+                    height: `${secondaryEggSize(tile.scale) * 0.72}px`,
+                    overflow: 'hidden',
+                  }}>
+                    <PixelEgg className="w-full" />
+                  </div>
+                  {/* 雙層 AO 暈影（縮放版） */}
+                  <div style={{ position: 'relative', height: 0, width: `${secondaryEggSize(tile.scale)}px` }}>
+                    <div style={{
+                      position: 'absolute', left: '50%', top: 0,
+                      transform: 'translate(-50%, -50%)',
+                      width: `${secondaryEggSize(tile.scale) * 0.92}px`,
+                      height: `${secondaryEggSize(tile.scale) * 0.10}px`,
+                      background: 'radial-gradient(ellipse, rgba(30,70,15,0.28) 0%, transparent 72%)',
+                      borderRadius: '50%', filter: 'blur(5px)',
+                    }} />
+                    <div style={{
+                      position: 'absolute', left: '50%', top: 0,
+                      transform: 'translate(-50%, -50%)',
+                      width: `${secondaryEggSize(tile.scale) * 0.58}px`,
+                      height: `${secondaryEggSize(tile.scale) * 0.055}px`,
+                      background: 'radial-gradient(ellipse, rgba(15,50,8,0.55) 0%, transparent 68%)',
+                      borderRadius: '50%', filter: 'blur(2.5px)',
+                    }} />
+                  </div>
                 </div>
               </div>
             )}
