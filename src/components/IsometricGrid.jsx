@@ -100,7 +100,7 @@ export default function IsometricGrid({ level, petState, emotion }) {
                 className="absolute pointer-events-auto"
                 style={{
                   left: '50%',
-                  top: '35%',
+                  top: '47%',
                   transform: 'translate(-50%, -100%)',
                   zIndex: 20,
                 }}
@@ -146,7 +146,7 @@ export default function IsometricGrid({ level, petState, emotion }) {
                 className="absolute pointer-events-auto"
                 style={{
                   left: '50%',
-                  top: '35%',
+                  top: '47%',
                   transform: 'translate(-50%, -100%)',
                   zIndex: 10,
                 }}
